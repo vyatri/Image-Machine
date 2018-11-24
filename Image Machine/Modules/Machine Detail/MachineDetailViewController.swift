@@ -11,79 +11,163 @@
 //
 
 import UIKit
+import Eureka
 
 protocol MachineDetailDisplayLogic: class
 {
-  func displaySomething(viewModel: MachineDetail.Something.ViewModel)
+    func displaySomething(viewModel: MachineDetail.Something.ViewModel)
 }
 
-class MachineDetailViewController: UIViewController, MachineDetailDisplayLogic
+class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
 {
-  var interactor: MachineDetailBusinessLogic?
-  var router: (NSObjectProtocol & MachineDetailRoutingLogic & MachineDetailDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = MachineDetailInteractor()
-    let presenter = MachineDetailPresenter()
-    let router = MachineDetailRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    
+    var interactor: MachineDetailBusinessLogic?
+    var router: (NSObjectProtocol & MachineDetailRoutingLogic & MachineDetailDataPassing)?
+    
+    // MARK: Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = MachineDetail.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: MachineDetail.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = MachineDetailInteractor()
+        let presenter = MachineDetailPresenter()
+        let router = MachineDetailRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+//        setupEurekaForm()
+        setupEurekaDisplay()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    // MARK: Do something
+    
+    @IBOutlet weak var rightNavButton: UIBarButtonItem!
+    //@IBOutlet weak var nameTextField: UITextField!
+    
+    func setupEurekaForm()
+    {
+        let request = MachineDetail.Something.Request()
+        interactor?.doSomething(request: request)
+        
+        form +++ Section("About Machine")
+            <<< TextRow(){ row in
+                row.title = "Id"
+                row.placeholder = "Enter text here"
+                row.value = UUID().uuidString
+            }
+            <<< TextRow(){ row in
+                row.title = "Name"
+                row.placeholder = "Enter text here"
+                row.value = "Yumna Zahrainy Zil Nadhifah"
+            }
+            <<< TextRow(){ row in
+                row.title = "Type"
+                row.placeholder = "Enter text here"
+                row.value = "Anak SD"
+            }
+            <<< PhoneRow(){
+                $0.title = "QRCode No."
+                $0.placeholder = "And numbers here"
+                $0.value = "123792387"
+            }
+            <<< DateRow(){
+                $0.title = "Last Maintenance"
+                $0.value = Date(timeIntervalSinceReferenceDate: 0)
+            }
+            +++ Section("Images")
+            <<< CarouselRow(){
+                $0.addButtonTarget = self
+                $0.addButtonAction = #selector(openImagePicker)
+                $0.isEditingMode = true
+                $0.Images = []
+            
+        }
+    }
+    
+    func setupEurekaDisplay()
+    {
+        form +++ Section("Machine Id")
+            <<< LongTextRow() {
+                $0.text = "A UUID is a universally unique identifier, which means if you generate a UUID right now using UUID it's guaranteed to be unique across all devices in the world. This means it's a great way to generate a unique identifier for users, for files, or anything else you need to reference individually – guaranteed."
+            }
+            +++ Section("Machine Name")
+            <<< LongTextRow() {
+                $0.text = "Yumna Zahrainy Zil Nadhifah"
+            }
+            +++ Section("Machine Type")
+            <<< LongTextRow() {
+                $0.text = "Yumna"
+            }
+            +++ Section("QRCode Number")
+            <<< LongTextRow() {
+                $0.text = "123123123"
+            }
+            +++ Section("Last Maintenance")
+            <<< LongTextRow() {
+                $0.text = "15 Sept 2015"
+            }
+            +++ Section("Images")
+            <<< CarouselRow(){
+                $0.isEditingMode = false
+                $0.Images = []
+        }
+    }
+    
+    @objc func openImagePicker() {
+        
+    }
+
+    @IBAction func rightNavButtonTapped(_ sender: UIBarButtonItem) {
+        
+        if sender.title ?? "" == "Edit" {
+            
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    func displaySomething(viewModel: MachineDetail.Something.ViewModel)
+    {
+        //nameTextField.text = viewModel.name
+    }
 }

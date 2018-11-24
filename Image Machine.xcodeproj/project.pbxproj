@@ -38,6 +38,12 @@
 		B21B227D21A93EA5000E794E /* MachineHomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227721A93EA5000E794E /* MachineHomeModels.swift */; };
 		B21B227E21A93EA5000E794E /* MachineHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227821A93EA5000E794E /* MachineHomeViewController.swift */; };
 		B21B227F21A93EA5000E794E /* MachineHomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227921A93EA5000E794E /* MachineHomeInteractor.swift */; };
+		B21B228321A94D80000E794E /* LongTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B228121A94D80000E794E /* LongTextCell.swift */; };
+		B21B228421A94D80000E794E /* LongTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B21B228221A94D80000E794E /* LongTextCell.xib */; };
+		B21B228721A953FD000E794E /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B228521A953FD000E794E /* CarouselCell.swift */; };
+		B21B228821A953FD000E794E /* CarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B21B228621A953FD000E794E /* CarouselCell.xib */; };
+		B21B228B21A9555A000E794E /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B228921A9555A000E794E /* ImageCell.swift */; };
+		B21B228C21A9555A000E794E /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B21B228A21A9555A000E794E /* ImageCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,6 +93,12 @@
 		B21B227721A93EA5000E794E /* MachineHomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeModels.swift; sourceTree = "<group>"; };
 		B21B227821A93EA5000E794E /* MachineHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeViewController.swift; sourceTree = "<group>"; };
 		B21B227921A93EA5000E794E /* MachineHomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeInteractor.swift; sourceTree = "<group>"; };
+		B21B228121A94D80000E794E /* LongTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextCell.swift; sourceTree = "<group>"; };
+		B21B228221A94D80000E794E /* LongTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LongTextCell.xib; sourceTree = "<group>"; };
+		B21B228521A953FD000E794E /* CarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
+		B21B228621A953FD000E794E /* CarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCell.xib; sourceTree = "<group>"; };
+		B21B228921A9555A000E794E /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		B21B228A21A9555A000E794E /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +160,7 @@
 			children = (
 				B21B223921A8DF46000E794E /* Assets.xcassets */,
 				B21B225421A8F897000E794E /* Storyboards */,
+				B21B228021A94D0B000E794E /* Cells */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -209,6 +222,19 @@
 				B21B227921A93EA5000E794E /* MachineHomeInteractor.swift */,
 			);
 			path = "Machine Home";
+			sourceTree = "<group>";
+		};
+		B21B228021A94D0B000E794E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B21B228121A94D80000E794E /* LongTextCell.swift */,
+				B21B228221A94D80000E794E /* LongTextCell.xib */,
+				B21B228521A953FD000E794E /* CarouselCell.swift */,
+				B21B228621A953FD000E794E /* CarouselCell.xib */,
+				B21B228921A9555A000E794E /* ImageCell.swift */,
+				B21B228A21A9555A000E794E /* ImageCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +299,9 @@
 			files = (
 				B21B223D21A8DF46000E794E /* LaunchScreen.storyboard in Resources */,
 				B21B223A21A8DF46000E794E /* Assets.xcassets in Resources */,
+				B21B228821A953FD000E794E /* CarouselCell.xib in Resources */,
+				B21B228C21A9555A000E794E /* ImageCell.xib in Resources */,
+				B21B228421A94D80000E794E /* LongTextCell.xib in Resources */,
 				B21B223821A8DF42000E794E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B21B226E21A93E11000E794E /* MachineDetailWorker.swift in Sources */,
+				B21B228321A94D80000E794E /* LongTextCell.swift in Sources */,
 				B21B226121A90B46000E794E /* MachineDataInteractor.swift in Sources */,
 				B21B227F21A93EA5000E794E /* MachineHomeInteractor.swift in Sources */,
 				B21B226D21A93E11000E794E /* MachineDetailPresenter.swift in Sources */,
@@ -320,11 +350,13 @@
 				B21B227021A93E11000E794E /* MachineDetailModels.swift in Sources */,
 				B21B223321A8DF42000E794E /* AppDelegate.swift in Sources */,
 				B21B227E21A93EA5000E794E /* MachineHomeViewController.swift in Sources */,
+				B21B228721A953FD000E794E /* CarouselCell.swift in Sources */,
 				B21B227D21A93EA5000E794E /* MachineHomeModels.swift in Sources */,
 				B21B227121A93E11000E794E /* MachineDetailViewController.swift in Sources */,
 				B21B227A21A93EA5000E794E /* MachineHomePresenter.swift in Sources */,
 				B21B227C21A93EA5000E794E /* MachineHomeRouter.swift in Sources */,
 				B21B225E21A90B46000E794E /* MachineDataRouter.swift in Sources */,
+				B21B228B21A9555A000E794E /* ImageCell.swift in Sources */,
 				B21B226F21A93E11000E794E /* MachineDetailRouter.swift in Sources */,
 				B21B225D21A90B46000E794E /* MachineDataWorker.swift in Sources */,
 				B21B226021A90B46000E794E /* MachineDataViewController.swift in Sources */,

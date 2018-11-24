@@ -73,6 +73,11 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
         setupDisplay()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        machineDataTableView.reloadData()
+    }
+    
     // MARK: - Constants and Variables
     
     @IBOutlet weak var machineDataTableView: UITableView!
@@ -127,4 +132,9 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
         cell.setData(MachineData.Something.ViewModel(machineId: "1", machineName: "Candy cheesecake marzipan bonbon bear claw. Jelly-o bear claw croissant tootsie roll marshmallow bear claw halvah", machineType: "Single Cupcake ;)", QRCodeNumber: "123123123", lastMaintenanceDate: Date(), images: nil))
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showDetail", sender: nil)
+    }
+    
 }

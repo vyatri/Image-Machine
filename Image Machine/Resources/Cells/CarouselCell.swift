@@ -1,0 +1,88 @@
+//
+//  CarouselCell.swift
+//  Image Machine
+//
+//  Created by Juanita Vyatri on 24/11/18.
+//  Copyright © 2018 Vyatri. All rights reserved.
+//
+
+import UIKit
+import Eureka
+
+open class CarouselCell: Cell<String>, CellType, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    @IBOutlet weak var addButton: UIButton!
+    var Images: [UIImage]?
+    @IBOutlet weak var clView: UICollectionView!
+    var CarouselRow: CarouselRow_! {
+        return row as? CarouselRow_
+    }
+
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+        clView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: "ImageCell")
+    }
+
+    override open func update() {
+        super.update()
+        Images = CarouselRow.Images
+        if (CarouselRow.isEditingMode) {
+            addButton.removeTarget(nil, action: nil, for: .allEvents)
+            addButton.addTarget(CarouselRow.addButtonTarget, action: CarouselRow.addButtonAction, for: .touchUpInside)
+            clView.isHidden = (Images?.count ?? 0 < 1) ? true : false
+            addButton.isEnabled = (Images?.count ?? 0 < 10) ? true : false
+            addButton .setTitle("+ Add Images", for: .normal)
+        } else {
+            addButton .setTitle("No images here", for: .disabled)
+            addButton.isEnabled = false
+            clView.isHidden = true
+        }
+    }
+    
+    override open func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return Images?.count ?? 0
+    }
+    
+    private func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: ImageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
+        cell.closeButton.removeTarget(nil, action: nil, for: .allEvents)
+        if (CarouselRow.isEditingMode) {
+            cell.closeButton.layer.setValue(indexPath, forKey: "indexpath")
+            cell.closeButton.addTarget(self, action: #selector(removeImage(_:)), for: .touchUpInside)
+        }
+        return cell
+    }
+    
+    @objc func removeImage(_ sender:UIButton) {
+        let indexpath: IndexPath = sender.layer.value(forKey: "indexpath") as! IndexPath
+        Images?.remove(at: indexpath.item)
+        clView.reloadData()
+    }
+}
+
+open class CarouselRow_: Row<CarouselCell> {
+    
+    open var Images: [UIImage]? = []
+    open var isEditingMode: Bool = false
+    open var addButtonAction: Selector!
+    open var addButtonTarget: UIViewController!
+    
+    required public init(tag: String?) {
+        super.init(tag: tag)
+        // We set the cellProvider to load the .xib corresponding to our cell
+        cellProvider = CellProvider<CarouselCell>(nibName: "CarouselCell")
+    }
+}
+
+public final class CarouselRow: CarouselRow_, RowType { }

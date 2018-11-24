@@ -178,8 +178,15 @@
                     </view>
                     <navigationItem key="navigationItem" title="Machine Data Detail" id="W4J-Ap-UCU">
                         <barButtonItem key="backBarButtonItem" title=" " id="7H6-ZI-sSd"/>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="7a8-DS-8OU"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="7a8-DS-8OU">
+                            <connections>
+                                <action selector="rightNavButtonTapped:" destination="gkS-il-NgF" id="4I6-ou-L8P"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="rightNavButton" destination="7a8-DS-8OU" id="Pn4-cs-e23"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nK6-k4-DZH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -205,6 +212,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ta0-Jf-vlR"/>
+        <segue reference="uCg-9d-gmC"/>
     </inferredMetricsTieBreakers>
 </document>
