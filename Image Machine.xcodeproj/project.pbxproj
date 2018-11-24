@@ -90,9 +90,7 @@
 			children = (
 				B21B223221A8DF42000E794E /* AppDelegate.swift */,
 				B21B223421A8DF42000E794E /* ViewController.swift */,
-				B21B223621A8DF42000E794E /* Main.storyboard */,
-				B21B223921A8DF46000E794E /* Assets.xcassets */,
-				B21B223B21A8DF46000E794E /* LaunchScreen.storyboard */,
+				B21B225321A8F873000E794E /* Resources */,
 				B21B223E21A8DF46000E794E /* Info.plist */,
 			);
 			path = "Image Machine";
@@ -107,6 +105,24 @@
 				B21B224721A8F40D000E794E /* TLPhotoPicker.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B21B225321A8F873000E794E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B21B223921A8DF46000E794E /* Assets.xcassets */,
+				B21B225421A8F897000E794E /* Storyboards */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B21B225421A8F897000E794E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				B21B223621A8DF42000E794E /* Main.storyboard */,
+				B21B223B21A8DF46000E794E /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
