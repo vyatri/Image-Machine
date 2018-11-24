@@ -108,7 +108,7 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
         
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            print(result)
+            print(result ?? "")
             // Check Machine QRCode number here
         }
         
@@ -126,12 +126,6 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
     }
     
     //This is an optional delegate method, that allows you to be notified when the user switches the cameraName
-    //By pressing on the switch camera button
-    func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
-        if let cameraName = newCaptureDevice.device.localizedName {
-            print("Switching capturing to: \(cameraName)")
-        }
-    }
     
     func readerDidCancel(_ reader: QRCodeReaderViewController) {
         reader.stopScanning()
