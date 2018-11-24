@@ -11,79 +11,131 @@
 //
 
 import UIKit
+import AVFoundation
+import QRCodeReader
 
 protocol MachineHomeDisplayLogic: class
 {
-  func displaySomething(viewModel: MachineHome.Something.ViewModel)
+    func displaySomething(viewModel: MachineHome.Something.ViewModel)
 }
 
-class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic
+class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCodeReaderViewControllerDelegate
 {
-  var interactor: MachineHomeBusinessLogic?
-  var router: (NSObjectProtocol & MachineHomeRoutingLogic & MachineHomeDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = MachineHomeInteractor()
-    let presenter = MachineHomePresenter()
-    let router = MachineHomeRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    var interactor: MachineHomeBusinessLogic?
+    var router: (NSObjectProtocol & MachineHomeRoutingLogic & MachineHomeDataPassing)?
+    
+    // MARK: Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = MachineHome.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: MachineHome.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = MachineHomeInteractor()
+        let presenter = MachineHomePresenter()
+        let router = MachineHomeRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        doSomething()
+    }
+    
+    // MARK: Do something
+    
+    //@IBOutlet weak var nameTextField: UITextField!
+    
+    func doSomething()
+    {
+        let request = MachineHome.Something.Request()
+        interactor?.doSomething(request: request)
+    }
+    
+    func displaySomething(viewModel: MachineHome.Something.ViewModel)
+    {
+        //nameTextField.text = viewModel.name
+    }
+    
+    // MARK: - QR Code Reader Delegate
+    
+    // Good practice: create the reader lazily to avoid cpu overload during the
+    // initialization and each time we need to scan a QRCode
+    lazy var readerVC: QRCodeReaderViewController = {
+        let builder = QRCodeReaderViewControllerBuilder {
+            $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+        }
+        
+        return QRCodeReaderViewController(builder: builder)
+    }()
+    
+    @IBAction func scanAction(_ sender: AnyObject) {
+        // Retrieve the QRCode content
+        // By using the delegate pattern
+        readerVC.delegate = self
+        
+        // Or by using the closure pattern
+        readerVC.completionBlock = { (result: QRCodeReaderResult?) in
+            print(result)
+            // Check Machine QRCode number here
+        }
+        
+        // Presents the readerVC as modal form sheet
+        readerVC.modalPresentationStyle = .formSheet
+        present(readerVC, animated: true, completion: nil)
+    }
+    
+    // MARK: - QRCodeReaderViewController Delegate Methods
+    
+    func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+        reader.stopScanning()
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    //This is an optional delegate method, that allows you to be notified when the user switches the cameraName
+    //By pressing on the switch camera button
+    func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
+        if let cameraName = newCaptureDevice.device.localizedName {
+            print("Switching capturing to: \(cameraName)")
+        }
+    }
+    
+    func readerDidCancel(_ reader: QRCodeReaderViewController) {
+        reader.stopScanning()
+        
+        dismiss(animated: true, completion: nil)
+    }
 }
