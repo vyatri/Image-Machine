@@ -1,0 +1,4 @@
+github "aFrogleap/SimpleImageViewer" "1.1.1"
+github "tilltue/TLPhotoPicker" "1.7.7"
+github "xmartlabs/Eureka" "4.3.0"
+github "yannickl/QRCodeReader.swift" "9.0.1"

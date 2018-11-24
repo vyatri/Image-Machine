@@ -12,7 +12,32 @@
 		B21B223821A8DF42000E794E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21B223621A8DF42000E794E /* Main.storyboard */; };
 		B21B223A21A8DF46000E794E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B21B223921A8DF46000E794E /* Assets.xcassets */; };
 		B21B223D21A8DF46000E794E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21B223B21A8DF46000E794E /* LaunchScreen.storyboard */; };
+		B21B224821A8F40D000E794E /* QRCodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224421A8F40D000E794E /* QRCodeReader.framework */; };
+		B21B224921A8F40D000E794E /* QRCodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224421A8F40D000E794E /* QRCodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B21B224A21A8F40D000E794E /* SimpleImageViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224521A8F40D000E794E /* SimpleImageViewer.framework */; };
+		B21B224B21A8F40D000E794E /* SimpleImageViewer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224521A8F40D000E794E /* SimpleImageViewer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B21B224C21A8F40D000E794E /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224621A8F40D000E794E /* Eureka.framework */; };
+		B21B224D21A8F40D000E794E /* Eureka.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224621A8F40D000E794E /* Eureka.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B21B224E21A8F40D000E794E /* TLPhotoPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224721A8F40D000E794E /* TLPhotoPicker.framework */; };
+		B21B224F21A8F40D000E794E /* TLPhotoPicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224721A8F40D000E794E /* TLPhotoPicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B21B225021A8F40D000E794E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B21B224D21A8F40D000E794E /* Eureka.framework in Embed Frameworks */,
+				B21B224B21A8F40D000E794E /* SimpleImageViewer.framework in Embed Frameworks */,
+				B21B224921A8F40D000E794E /* QRCodeReader.framework in Embed Frameworks */,
+				B21B224F21A8F40D000E794E /* TLPhotoPicker.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B21B222F21A8DF42000E794E /* Image Machine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Image Machine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,6 +47,10 @@
 		B21B223921A8DF46000E794E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B21B223C21A8DF46000E794E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B21B223E21A8DF46000E794E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B21B224421A8F40D000E794E /* QRCodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCodeReader.framework; path = Carthage/Build/iOS/QRCodeReader.framework; sourceTree = "<group>"; };
+		B21B224521A8F40D000E794E /* SimpleImageViewer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleImageViewer.framework; path = Carthage/Build/iOS/SimpleImageViewer.framework; sourceTree = "<group>"; };
+		B21B224621A8F40D000E794E /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = Carthage/Build/iOS/Eureka.framework; sourceTree = "<group>"; };
+		B21B224721A8F40D000E794E /* TLPhotoPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TLPhotoPicker.framework; path = Carthage/Build/iOS/TLPhotoPicker.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +58,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21B224C21A8F40D000E794E /* Eureka.framework in Frameworks */,
+				B21B224A21A8F40D000E794E /* SimpleImageViewer.framework in Frameworks */,
+				B21B224821A8F40D000E794E /* QRCodeReader.framework in Frameworks */,
+				B21B224E21A8F40D000E794E /* TLPhotoPicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				B21B223121A8DF42000E794E /* Image Machine */,
+				B21B225221A8F6EB000E794E /* Frameworks */,
 				B21B223021A8DF42000E794E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +98,17 @@
 			path = "Image Machine";
 			sourceTree = "<group>";
 		};
+		B21B225221A8F6EB000E794E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B21B224621A8F40D000E794E /* Eureka.framework */,
+				B21B224421A8F40D000E794E /* QRCodeReader.framework */,
+				B21B224521A8F40D000E794E /* SimpleImageViewer.framework */,
+				B21B224721A8F40D000E794E /* TLPhotoPicker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,6 +119,8 @@
 				B21B222B21A8DF42000E794E /* Sources */,
 				B21B222C21A8DF42000E794E /* Frameworks */,
 				B21B222D21A8DF42000E794E /* Resources */,
+				B21B225021A8F40D000E794E /* Embed Frameworks */,
+				B21B225121A8F448000E794E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -129,6 +176,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B21B225121A8F448000E794E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Eureka.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/QRCodeReader.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SimpleImageViewer.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TLPhotoPicker.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B21B222B21A8DF42000E794E /* Sources */ = {
@@ -284,6 +355,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YC8XZV676G;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Image Machine/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -302,6 +377,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YC8XZV676G;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Image Machine/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

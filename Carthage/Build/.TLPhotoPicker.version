@@ -1,0 +1,9 @@
+{
+  "commitish" : "1.7.7",
+  "iOS" : [
+    {
+      "name" : "TLPhotoPicker",
+      "hash" : "ad7b12ee557a872c6ee49c9f9f5894a08ef05f1496d541be776d57e56b3388ce"
+    }
+  ]
+}
