@@ -14,7 +14,7 @@ import UIKit
 
 protocol MachineHomeBusinessLogic
 {
-  func doSomething(request: MachineHome.Something.Request)
+  func openDetail(machineId: String)
 }
 
 protocol MachineHomeDataStore
@@ -30,12 +30,11 @@ class MachineHomeInteractor: MachineHomeBusinessLogic, MachineHomeDataStore
   
   // MARK: Do something
   
-  func doSomething(request: MachineHome.Something.Request)
+  func openDetail(machineId: String)
   {
     worker = MachineHomeWorker()
-    worker?.doSomeWork()
-    
-    let response = MachineHome.Something.Response()
-    presenter?.presentSomething(response: response)
+    if let foundId = worker?.getData(machineId: machineId), foundId != "" {
+        presenter?.presentSomething(machineId: foundId)
+    }
   }
 }

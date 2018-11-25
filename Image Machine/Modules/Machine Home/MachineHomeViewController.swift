@@ -16,7 +16,7 @@ import QRCodeReader
 
 protocol MachineHomeDisplayLogic: class
 {
-    func displaySomething(viewModel: MachineHome.Something.ViewModel)
+    func displaySomething(machineId: String)
 }
 
 class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCodeReaderViewControllerDelegate
@@ -80,13 +80,13 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
     
     func doSomething()
     {
-        let request = MachineHome.Something.Request()
-        interactor?.doSomething(request: request)
     }
     
-    func displaySomething(viewModel: MachineHome.Something.ViewModel)
+    func displaySomething(machineId: String)
     {
-        //nameTextField.text = viewModel.name
+        if machineId != "" {
+            
+        }
     }
     
     // MARK: - QR Code Reader Delegate
@@ -108,8 +108,11 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
         
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            print(result ?? "")
+
             // Check Machine QRCode number here
+            if let machineId = result?.value {
+                self.interactor?.openDetail(machineId: machineId)
+            }
         }
         
         // Presents the readerVC as modal form sheet

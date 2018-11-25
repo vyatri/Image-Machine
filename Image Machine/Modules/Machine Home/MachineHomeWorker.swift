@@ -14,7 +14,17 @@ import UIKit
 
 class MachineHomeWorker
 {
-  func doSomeWork()
-  {
-  }
+    func getData(machineId: String) -> String
+    {
+        var foundId = ""
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            let machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+            machines.forEach { (_machine) in
+                if _machine.machineId == machineId {
+                    foundId = machineId
+                }
+            }
+        }
+        return foundId
+    }
 }

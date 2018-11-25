@@ -14,7 +14,7 @@ import UIKit
 
 protocol MachineHomePresentationLogic
 {
-  func presentSomething(response: MachineHome.Something.Response)
+  func presentSomething(machineId: String)
 }
 
 class MachineHomePresenter: MachineHomePresentationLogic
@@ -23,9 +23,8 @@ class MachineHomePresenter: MachineHomePresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: MachineHome.Something.Response)
+  func presentSomething(machineId: String)
   {
-    let viewModel = MachineHome.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    viewController?.displaySomething(machineId: machineId)
   }
 }

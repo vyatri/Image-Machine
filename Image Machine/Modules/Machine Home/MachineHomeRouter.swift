@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol MachineHomeRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToDetail(machineId: String)
 }
 
 protocol MachineHomeDataPassing
@@ -29,32 +29,27 @@ class MachineHomeRouter: NSObject, MachineHomeRoutingLogic, MachineHomeDataPassi
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: MachineHomeViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: MachineHomeDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    func routeToDetail(machineId: String)
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "MachineDetail") as! MachineDetailViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToDetail(destination: &destinationDS, machineId: machineId)
+        navigateToDetail(source: viewController!, destination: destinationVC)
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToDetail(source: MachineHomeViewController, destination: MachineDetailViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataToDetail(destination: inout MachineDetailDataStore, machineId: String)
+    {
+        destination.machineId = machineId
+        destination.displayMode = "view"
+    }
 }
