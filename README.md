@@ -2,7 +2,7 @@ Image Machine is an app that enables us to save machine data and scan their QRCo
 
 Going to the topic, This is the flow that this app is trying to make
 
-![alt text](https://raw.githubusercontent.com/vyatri/ImageMachine/master/screenflow.png)
+![alt text](https://raw.githubusercontent.com/vyatri/mage-Machine/development/screenflow.png)
 
 Remember that the Machine Reader feature can only be accessed on real device, not simulator, due to camera functionality
 
