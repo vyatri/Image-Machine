@@ -32,7 +32,7 @@ enum MachineDetail
         var machineType: String!
         var QRCodeNumber: String!
         var lastMaintenanceDate: Date!
-        var images: [UIImage]?
+        var images: [String]?
     }
   }
 }

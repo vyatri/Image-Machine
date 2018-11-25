@@ -108,36 +108,44 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
             <<< TextRow(){ row in
                 row.title = "Id"
                 row.placeholder = "Enter text here"
-                if (displayMode! == "edit") {
+                if (displayMode! == "add") {
                     row.value = UUID().uuidString
+                } else {
+                    row.value = "95289A47-01AC-41CF-A172-3BE05754A689"
                 }
+                row.disabled = true
+                row.tag = "machineId"
             }
             <<< TextRow(){ row in
                 row.title = "Name"
                 row.placeholder = "Enter text here"
                 if (displayMode! == "edit") {
-                    row.value = "Yumna Zahrainy Zil Nadhifah"
+                    row.value = "Candy Maker"
                 }
+                row.tag = "machineName"
             }
             <<< TextRow(){ row in
                 row.title = "Type"
                 row.placeholder = "Enter text here"
                 if (displayMode! == "edit") {
-                    row.value = "Anak SD"
+                    row.value = "Kitchen Utensils"
                 }
+                row.tag = "machineType"
             }
             <<< PhoneRow(){
                 $0.title = "QRCode No."
                 $0.placeholder = "And numbers here"
                 if (displayMode! == "edit") {
-                    $0.value = "123792387"
+                    $0.value = "1100102"
                 }
+                $0.tag = "QRCodeNumber"
             }
-            <<< DateRow(){
+            <<< DateTimeRow() {
                 $0.title = "Last Maintenance"
                 if (displayMode! == "edit") {
                     $0.value = Date(timeIntervalSinceReferenceDate: 0)
                 }
+                $0.tag = "LastMaintenanceDate"
             }
             +++ Section("Images")
             <<< CarouselRow(){
@@ -149,6 +157,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 } else {
                     $0.Images = []
                 }
+                $0.tag = "images"
             
         }
     }
@@ -157,23 +166,23 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     {
         form +++ Section("Machine Id")
             <<< LongTextRow() {
-                $0.text = "A UUID is a universally unique identifier, which means if you generate a UUID right now using UUID it's guaranteed to be unique across all devices in the world. This means it's a great way to generate a unique identifier for users, for files, or anything else you need to reference individually – guaranteed."
+                $0.text = "95289A47-01AC-41CF-A172-3BE05754A689" //UUID().uuidString
             }
             +++ Section("Machine Name")
             <<< LongTextRow() {
-                $0.text = "Yumna Zahrainy Zil Nadhifah"
+                $0.text = "Candy Maker"
             }
             +++ Section("Machine Type")
             <<< LongTextRow() {
-                $0.text = "Yumna"
+                $0.text = "Kitchen Utensils"
             }
             +++ Section("QRCode Number")
             <<< LongTextRow() {
-                $0.text = "123123123"
+                $0.text = "1100102"
             }
             +++ Section("Last Maintenance")
             <<< LongTextRow() {
-                $0.text = "15 Sept 2015"
+                $0.text = "25/11/2018, 08:21" //DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
             }
             +++ Section("Images")
             <<< CarouselRow(){
@@ -188,12 +197,58 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
 
     @IBAction func rightNavButtonTapped(_ sender: UIBarButtonItem) {
         
-        if sender.title ?? "" == "Save" {
-            self.navigationController?.popViewController(animated: true)
+        if sender == saveButton {
+            if displayMode == "add" {
+                self.addMachine()
+            } else {
+                self.editMachine()
+            }
         } else {
             router?.routeToEdit(machineId: machineId)
         }
     }
+    
+    func addMachine() {
+        let values = form.values()
+        let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: values["QRCodeNumber"] as! String, lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: [])
+        var machines = [Machine]()
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+        }
+        machines.append(newMachine)
+        
+        do {
+            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
+            self.navigationController?.popViewController(animated: true)
+        } catch {
+            
+        }
+    }
+    
+    func editMachine() {
+        let values = form.values()
+        var machines = [Machine]()
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+            var i = 0
+            machines.forEach { (_oldMachine) in
+                if _oldMachine.machineId == values["machineId"] as! String {
+                    let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: values["QRCodeNumber"] as! String, lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: [])
+                    machines.remove(at: i)
+                    machines.append(newMachine)
+                }
+                i += 1
+            }
+        }
+        
+        do {
+            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
+            self.navigationController?.popViewController(animated: true)
+        } catch {
+            
+        }
+    }
+    
     func displaySomething(viewModel: MachineDetail.Something.ViewModel)
     {
         //nameTextField.text = viewModel.name

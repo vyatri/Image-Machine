@@ -15,7 +15,7 @@ import UIKit
 // Sent from Presenter
 protocol MachineDataDisplayLogic: class
 {
-    func displaySomething(viewModel: MachineData.Something.ViewModel)
+    func displaySomething(machines: [Machine])
 }
 
 class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITableViewDelegate, UITableViewDataSource
@@ -75,13 +75,14 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        machineDataTableView.reloadData()
+        let request = MachineData.Something.Request()
+        interactor?.doSomething(request: request)
     }
     
     // MARK: - Constants and Variables
     
     @IBOutlet weak var machineDataTableView: UITableView!
-    var MachineList: [MachineData.Something.ViewModel]!
+    var MachineList: [Machine]! = []
     
     // MARK: - Main functions
     func setupDisplay()
@@ -93,9 +94,10 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
         interactor?.doSomething(request: request)
     }
     
-    func displaySomething(viewModel: MachineData.Something.ViewModel)
+    func displaySomething(machines: [Machine])
     {
-        //nameTextField.text = viewModel.name
+        MachineList = machines
+        machineDataTableView.reloadData()
     }
     
     // MARK: - Actions
@@ -118,23 +120,23 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
     }
     
     @IBAction func addMachineData(_ sender: Any) {
-        router?.routeToDetail(machineId: "567", displayMode: "add")
+        router?.routeToDetail(machineId: UUID().uuidString, displayMode: "add")
     }
     
     // MARK: - Tableview delegate and datasources
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return MachineList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dataCell", for: indexPath) as! MachineDataCell
-        cell.setData(MachineData.Something.ViewModel(machineId: "1", machineName: "Candy cheesecake marzipan bonbon bear claw. Jelly-o bear claw croissant tootsie roll marshmallow bear claw halvah", machineType: "Single Cupcake ;)", QRCodeNumber: "123123123", lastMaintenanceDate: Date(), images: nil))
+        cell.setData(MachineList[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        router?.routeToDetail(machineId: "567", displayMode: "view")
+        router?.routeToDetail(machineId: MachineList[indexPath.row].machineId, displayMode: "view")
     }
     
 }

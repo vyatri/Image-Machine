@@ -15,7 +15,7 @@ import UIKit
 // Sent From Interactor
 protocol MachineDataPresentationLogic
 {
-  func presentSomething(response: MachineData.Something.Response)
+  func presentSomething(machines: [Machine])
 }
 
 class MachineDataPresenter: MachineDataPresentationLogic
@@ -24,9 +24,8 @@ class MachineDataPresenter: MachineDataPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: MachineData.Something.Response)
+  func presentSomething(machines: [Machine])
   {
-//    let viewModel = MachineData.Something.ViewModel(machine)
-//    viewController?.displaySomething(viewModel: viewModel)
+    viewController?.displaySomething(machines: machines)
   }
 }

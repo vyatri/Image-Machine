@@ -24,7 +24,7 @@ class MachineDataCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setData(_ model: MachineData.Something.ViewModel) {
+    func setData(_ model: Machine) {
         nameLabel.text = model.machineName
         typeLabel.text = model.machineType
     }

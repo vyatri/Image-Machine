@@ -33,9 +33,9 @@ class MachineDataInteractor: MachineDataBusinessLogic, MachineDataDataStore
   func doSomething(request: MachineData.Something.Request)
   {
     worker = MachineDataWorker()
-    worker?.doSomeWork()
+    let machines = worker?.getList()
     
     let response = MachineData.Something.Response()
-    presenter?.presentSomething(response: response)
+    presenter?.presentSomething(machines: machines ?? [])
   }
 }
