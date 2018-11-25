@@ -12,6 +12,7 @@
 
 import UIKit
 import Eureka
+import TLPhotoPicker
 
 protocol MachineDetailDisplayLogic: class
 {
@@ -202,7 +203,14 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     }
     
     @objc func openImagePicker() {
-        
+        let viewController = TLPhotosPickerViewController()
+//        viewController.delegate = self
+        var configure = TLPhotosPickerConfigure()
+        configure.allowedLivePhotos = false
+        configure.allowedVideo = false
+        configure.allowedVideoRecording = false
+        viewController.configure = configure
+        self.present(viewController, animated: true, completion: nil)
     }
 
     @IBAction func rightNavButtonTapped(_ sender: UIBarButtonItem) {
