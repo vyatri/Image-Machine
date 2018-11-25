@@ -260,6 +260,27 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
         }
     }
     
+    @IBAction func deleteMachine(_ sender: UIBarButtonItem) {
+        var machines = [Machine]()
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+            var i = 0
+            machines.forEach { (_oldMachine) in
+                if _oldMachine.machineId == machineId {
+                    machines.remove(at: i)
+                }
+                i += 1
+            }
+        }
+        
+        do {
+            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
+            self.navigationController?.popViewController(animated: true)
+        } catch {
+            
+        }
+    }
+    
     func displaySomething(machine: Machine)
     {
         self.machine = machine

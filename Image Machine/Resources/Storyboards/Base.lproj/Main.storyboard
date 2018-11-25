@@ -179,7 +179,11 @@
                     <navigationItem key="navigationItem" title="Machine Data Detail" id="W4J-Ap-UCU">
                         <barButtonItem key="backBarButtonItem" title=" " id="7H6-ZI-sSd"/>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="trash" id="bbX-Zv-nV7"/>
+                            <barButtonItem systemItem="trash" id="bbX-Zv-nV7">
+                                <connections>
+                                    <action selector="deleteMachine:" destination="gkS-il-NgF" id="xLX-0k-mpA"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="compose" id="7a8-DS-8OU">
                                 <connections>
                                     <action selector="rightNavButtonTapped:" destination="gkS-il-NgF" id="4I6-ou-L8P"/>
