@@ -26,6 +26,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     var machineId: String!
     var displayMode: String?
     var machine: Machine!
+    var needReload: Bool = false
     
     // MARK: Object lifecycle
     
@@ -88,12 +89,14 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
             self.navigationItem.rightBarButtonItems = [trashButton, rightNavButton]
         }
         
-        interactor?.doSomething(machineId: machineId)
+        if (needReload == false) {
+            interactor?.doSomething(machineId: machineId)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if displayMode! != "add" {
+        if displayMode! == "view" && needReload == true {
             interactor?.doSomething(machineId: machineId)
         }
     }
@@ -203,7 +206,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     }
 
     @IBAction func rightNavButtonTapped(_ sender: UIBarButtonItem) {
-        
+        self.view.endEditing(true)
         if sender == saveButton {
             if displayMode == "add" {
                 self.addMachine()
@@ -211,6 +214,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 self.editMachine()
             }
         } else {
+            needReload = true
             router?.routeToEdit(machineId: machineId)
         }
     }
@@ -259,9 +263,14 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     func displaySomething(machine: Machine)
     {
         self.machine = machine
-        if ((displayMode != nil) && (displayMode! == "edit")) {
-            self.setupEurekaForm()
+        if needReload == false {
+            if ((displayMode != nil) && (displayMode! == "edit")) {
+                self.setupEurekaForm()
+            } else {
+                self.setupEurekaDisplay()
+            }
         } else {
+            form.removeAll()
             self.setupEurekaDisplay()
         }
     }
