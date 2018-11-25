@@ -25,7 +25,6 @@ class MachineDetailPresenter: MachineDetailPresentationLogic
   
   func presentSomething(machine: Machine)
   {
-    let viewModel = MachineDetail.Something.ViewModel()
     viewController?.displaySomething(machine: machine)
   }
 }

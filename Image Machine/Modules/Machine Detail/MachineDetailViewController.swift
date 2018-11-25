@@ -93,7 +93,9 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        if displayMode! != "add" {
+            interactor?.doSomething(machineId: machineId)
+        }
     }
     
     // MARK: Do something
@@ -106,8 +108,6 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     
     func setupEurekaForm()
     {
-        let request = MachineDetail.Something.Request()
-        interactor?.doSomething(machineId: machineId)
         
         form +++ Section("About Machine")
             <<< TextRow(){ row in
