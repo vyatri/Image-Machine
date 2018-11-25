@@ -14,7 +14,7 @@ import UIKit
 
 protocol MachineDetailBusinessLogic
 {
-    func doSomething(request: MachineDetail.Something.Request)
+    func doSomething(machineId: String)
 }
 
 protocol MachineDetailDataStore
@@ -35,12 +35,11 @@ class MachineDetailInteractor: MachineDetailBusinessLogic, MachineDetailDataStor
     
     // MARK: Do something
     
-    func doSomething(request: MachineDetail.Something.Request)
+    func doSomething(machineId: String)
     {
         worker = MachineDetailWorker()
-        worker?.doSomeWork()
+        let machine = worker?.getData(machineId: machineId)
         
-        let response = MachineDetail.Something.Response()
-        presenter?.presentSomething(response: response)
+        presenter?.presentSomething(machine: machine!)
     }
 }

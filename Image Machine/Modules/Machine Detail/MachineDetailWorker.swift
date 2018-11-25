@@ -14,7 +14,17 @@ import UIKit
 
 class MachineDetailWorker
 {
-  func doSomeWork()
+    func getData(machineId: String) -> Machine
   {
+    var machine: Machine!
+    if let data = UserDefaults.standard.data(forKey: "machines") {
+        let machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+        machines.forEach { (_machine) in
+            if _machine.machineId == machineId {
+                machine = _machine
+            }
+        }
+    }
+    return machine
   }
 }

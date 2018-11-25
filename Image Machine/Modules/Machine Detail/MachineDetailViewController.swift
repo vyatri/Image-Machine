@@ -15,7 +15,7 @@ import Eureka
 
 protocol MachineDetailDisplayLogic: class
 {
-    func displaySomething(viewModel: MachineDetail.Something.ViewModel)
+    func displaySomething(machine: Machine)
 }
 
 class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
@@ -25,6 +25,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     var router: (NSObjectProtocol & MachineDetailRoutingLogic & MachineDetailDataPassing)?
     var machineId: String!
     var displayMode: String?
+    var machine: Machine!
     
     // MARK: Object lifecycle
     
@@ -77,13 +78,17 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
         displayMode = (router?.dataStore?.displayMode)!
         self.navigationItem.rightBarButtonItems = nil
         if ((displayMode != nil) && (displayMode! == "edit" ||  displayMode! == "add")) {
-            setupEurekaForm()
             self.navigationItem.rightBarButtonItem = saveButton
+            if displayMode! == "add" {
+                setupEurekaForm()
+                return
+            }
         } else {
-            setupEurekaDisplay()
             self.navigationItem.rightBarButtonItem = nil
             self.navigationItem.rightBarButtonItems = [trashButton, rightNavButton]
         }
+        
+        interactor?.doSomething(machineId: machineId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,7 +107,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     func setupEurekaForm()
     {
         let request = MachineDetail.Something.Request()
-        interactor?.doSomething(request: request)
+        interactor?.doSomething(machineId: machineId)
         
         form +++ Section("About Machine")
             <<< TextRow(){ row in
@@ -111,7 +116,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 if (displayMode! == "add") {
                     row.value = UUID().uuidString
                 } else {
-                    row.value = "95289A47-01AC-41CF-A172-3BE05754A689"
+                    row.value = machine.machineId
                 }
                 row.disabled = true
                 row.tag = "machineId"
@@ -120,7 +125,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 row.title = "Name"
                 row.placeholder = "Enter text here"
                 if (displayMode! == "edit") {
-                    row.value = "Candy Maker"
+                    row.value = machine.machineName
                 }
                 row.tag = "machineName"
             }
@@ -128,7 +133,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 row.title = "Type"
                 row.placeholder = "Enter text here"
                 if (displayMode! == "edit") {
-                    row.value = "Kitchen Utensils"
+                    row.value = machine.machineType
                 }
                 row.tag = "machineType"
             }
@@ -136,13 +141,15 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 $0.title = "QRCode No."
                 $0.placeholder = "And numbers here"
                 if (displayMode! == "edit") {
-                    $0.value = "1100102"
+                    $0.value = machine.QRCodeNumber
                 }
                 $0.tag = "QRCodeNumber"
             }
             <<< DateTimeRow() {
                 $0.title = "Last Maintenance"
                 if (displayMode! == "edit") {
+                    $0.value = machine.lastMaintenanceDate
+                } else {
                     $0.value = Date(timeIntervalSinceReferenceDate: 0)
                 }
                 $0.tag = "LastMaintenanceDate"
@@ -153,7 +160,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 $0.addButtonAction = #selector(openImagePicker)
                 $0.isEditingMode = true
                 if (displayMode! == "edit") {
-                    $0.Images = []
+                    $0.Images = [] //machine.images
                 } else {
                     $0.Images = []
                 }
@@ -166,28 +173,28 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     {
         form +++ Section("Machine Id")
             <<< LongTextRow() {
-                $0.text = "95289A47-01AC-41CF-A172-3BE05754A689" //UUID().uuidString
+                $0.text = machine.machineId
             }
             +++ Section("Machine Name")
             <<< LongTextRow() {
-                $0.text = "Candy Maker"
+                $0.text = machine.machineName
             }
             +++ Section("Machine Type")
             <<< LongTextRow() {
-                $0.text = "Kitchen Utensils"
+                $0.text = machine.machineType
             }
             +++ Section("QRCode Number")
             <<< LongTextRow() {
-                $0.text = "1100102"
+                $0.text = machine.QRCodeNumber
             }
             +++ Section("Last Maintenance")
             <<< LongTextRow() {
-                $0.text = "25/11/2018, 08:21" //DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
+                $0.text = DateFormatter.localizedString(from: machine.lastMaintenanceDate, dateStyle: .short, timeStyle: .short)
             }
             +++ Section("Images")
             <<< CarouselRow(){
                 $0.isEditingMode = false
-                $0.Images = []
+                $0.Images = [] //machine.images
         }
     }
     
@@ -249,8 +256,13 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
         }
     }
     
-    func displaySomething(viewModel: MachineDetail.Something.ViewModel)
+    func displaySomething(machine: Machine)
     {
-        //nameTextField.text = viewModel.name
+        self.machine = machine
+        if ((displayMode != nil) && (displayMode! == "edit")) {
+            self.setupEurekaForm()
+        } else {
+            self.setupEurekaDisplay()
+        }
     }
 }
