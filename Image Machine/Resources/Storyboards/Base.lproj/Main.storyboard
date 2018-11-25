@@ -169,7 +169,7 @@
         <!--Machine Data Detail-->
         <scene sceneID="45r-jK-2eo">
             <objects>
-                <viewController title="Machine Data Detail" id="gkS-il-NgF" customClass="MachineDetailViewController" customModule="Image_Machine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MachineDetail" title="Machine Data Detail" id="gkS-il-NgF" customClass="MachineDetailViewController" customModule="Image_Machine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="reP-3k-9Mx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -178,14 +178,24 @@
                     </view>
                     <navigationItem key="navigationItem" title="Machine Data Detail" id="W4J-Ap-UCU">
                         <barButtonItem key="backBarButtonItem" title=" " id="7H6-ZI-sSd"/>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="7a8-DS-8OU">
-                            <connections>
-                                <action selector="rightNavButtonTapped:" destination="gkS-il-NgF" id="4I6-ou-L8P"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="trash" id="bbX-Zv-nV7"/>
+                            <barButtonItem systemItem="compose" id="7a8-DS-8OU">
+                                <connections>
+                                    <action selector="rightNavButtonTapped:" destination="gkS-il-NgF" id="4I6-ou-L8P"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="save" id="Q8J-Ff-sPO">
+                                <connections>
+                                    <action selector="rightNavButtonTapped:" destination="gkS-il-NgF" id="QQf-H0-2Tb"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="rightNavButton" destination="7a8-DS-8OU" id="Pn4-cs-e23"/>
+                        <outlet property="saveButton" destination="Q8J-Ff-sPO" id="Udt-1r-78B"/>
+                        <outlet property="trashButton" destination="bbX-Zv-nV7" id="YOV-RR-hfF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nK6-k4-DZH" userLabel="First Responder" sceneMemberID="firstResponder"/>

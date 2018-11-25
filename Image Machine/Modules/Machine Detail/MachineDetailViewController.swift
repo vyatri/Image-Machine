@@ -23,6 +23,8 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     
     var interactor: MachineDetailBusinessLogic?
     var router: (NSObjectProtocol & MachineDetailRoutingLogic & MachineDetailDataPassing)?
+    var machineId: String!
+    var displayMode: String?
     
     // MARK: Object lifecycle
     
@@ -71,8 +73,17 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-//        setupEurekaForm()
-        setupEurekaDisplay()
+        machineId = (router?.dataStore?.machineId)!
+        displayMode = (router?.dataStore?.displayMode)!
+        self.navigationItem.rightBarButtonItems = nil
+        if ((displayMode != nil) && (displayMode! == "edit" ||  displayMode! == "add")) {
+            setupEurekaForm()
+            self.navigationItem.rightBarButtonItem = saveButton
+        } else {
+            setupEurekaDisplay()
+            self.navigationItem.rightBarButtonItem = nil
+            self.navigationItem.rightBarButtonItems = [trashButton, rightNavButton]
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,8 +93,11 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     
     // MARK: Do something
     
+    @IBOutlet weak var trashButton: UIBarButtonItem!
     @IBOutlet weak var rightNavButton: UIBarButtonItem!
-    //@IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    
     
     func setupEurekaForm()
     {
@@ -94,33 +108,47 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
             <<< TextRow(){ row in
                 row.title = "Id"
                 row.placeholder = "Enter text here"
-                row.value = UUID().uuidString
+                if (displayMode! == "edit") {
+                    row.value = UUID().uuidString
+                }
             }
             <<< TextRow(){ row in
                 row.title = "Name"
                 row.placeholder = "Enter text here"
-                row.value = "Yumna Zahrainy Zil Nadhifah"
+                if (displayMode! == "edit") {
+                    row.value = "Yumna Zahrainy Zil Nadhifah"
+                }
             }
             <<< TextRow(){ row in
                 row.title = "Type"
                 row.placeholder = "Enter text here"
-                row.value = "Anak SD"
+                if (displayMode! == "edit") {
+                    row.value = "Anak SD"
+                }
             }
             <<< PhoneRow(){
                 $0.title = "QRCode No."
                 $0.placeholder = "And numbers here"
-                $0.value = "123792387"
+                if (displayMode! == "edit") {
+                    $0.value = "123792387"
+                }
             }
             <<< DateRow(){
                 $0.title = "Last Maintenance"
-                $0.value = Date(timeIntervalSinceReferenceDate: 0)
+                if (displayMode! == "edit") {
+                    $0.value = Date(timeIntervalSinceReferenceDate: 0)
+                }
             }
             +++ Section("Images")
             <<< CarouselRow(){
                 $0.addButtonTarget = self
                 $0.addButtonAction = #selector(openImagePicker)
                 $0.isEditingMode = true
-                $0.Images = []
+                if (displayMode! == "edit") {
+                    $0.Images = []
+                } else {
+                    $0.Images = []
+                }
             
         }
     }
@@ -160,10 +188,10 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
 
     @IBAction func rightNavButtonTapped(_ sender: UIBarButtonItem) {
         
-        if sender.title ?? "" == "Edit" {
-            
-        } else {
+        if sender.title ?? "" == "Save" {
             self.navigationController?.popViewController(animated: true)
+        } else {
+            router?.routeToEdit(machineId: machineId)
         }
     }
     func displaySomething(viewModel: MachineDetail.Something.ViewModel)

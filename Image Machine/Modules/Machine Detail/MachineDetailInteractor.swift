@@ -14,28 +14,33 @@ import UIKit
 
 protocol MachineDetailBusinessLogic
 {
-  func doSomething(request: MachineDetail.Something.Request)
+    func doSomething(request: MachineDetail.Something.Request)
 }
 
 protocol MachineDetailDataStore
 {
-  //var name: String { get set }
+    var machineId: String! { get set}
+    var displayMode: String? { get set}
 }
 
 class MachineDetailInteractor: MachineDetailBusinessLogic, MachineDetailDataStore
 {
-  var presenter: MachineDetailPresentationLogic?
-  var worker: MachineDetailWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: MachineDetail.Something.Request)
-  {
-    worker = MachineDetailWorker()
-    worker?.doSomeWork()
     
-    let response = MachineDetail.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var machineId: String!
+    var displayMode: String?
+    
+    var presenter: MachineDetailPresentationLogic?
+    var worker: MachineDetailWorker?
+    //var name: String = ""
+    
+    // MARK: Do something
+    
+    func doSomething(request: MachineDetail.Something.Request)
+    {
+        worker = MachineDetailWorker()
+        worker?.doSomeWork()
+        
+        let response = MachineDetail.Something.Response()
+        presenter?.presentSomething(response: response)
+    }
 }

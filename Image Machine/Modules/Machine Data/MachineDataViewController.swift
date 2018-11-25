@@ -118,7 +118,7 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
     }
     
     @IBAction func addMachineData(_ sender: Any) {
-        performSegue(withIdentifier: "showDetail", sender: nil)
+        router?.routeToDetail(machineId: "567", displayMode: "add")
     }
     
     // MARK: - Tableview delegate and datasources
@@ -134,7 +134,7 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showDetail", sender: nil)
+        router?.routeToDetail(machineId: "567", displayMode: "view")
     }
     
 }

@@ -20,12 +20,19 @@ enum MachineDetail
   {
     struct Request
     {
+        var machineId: String!
     }
     struct Response
     {
     }
     struct ViewModel
     {
+        var machineId: String!
+        var machineName: String!
+        var machineType: String!
+        var QRCodeNumber: String!
+        var lastMaintenanceDate: Date!
+        var images: [UIImage]?
     }
   }
 }

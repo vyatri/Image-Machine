@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol MachineDetailRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToEdit(machineId: String)
 }
 
 protocol MachineDetailDataPassing
@@ -29,32 +29,27 @@ class MachineDetailRouter: NSObject, MachineDetailRoutingLogic, MachineDetailDat
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToEdit(machineId: String)
+  {
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let destinationVC = storyboard.instantiateViewController(withIdentifier: "MachineDetail") as! MachineDetailViewController
+      var destinationDS = destinationVC.router!.dataStore!
+      passDataToEdit(source: dataStore!, destination: &destinationDS)
+      navigateToEdit(source: viewController!, destination: destinationVC)
+  }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: MachineDetailViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToEdit(source: MachineDetailViewController, destination: MachineDetailViewController)
+  {
+    source.show(destination, sender: nil)
+  }
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: MachineDetailDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToEdit(source: MachineDetailDataStore, destination: inout MachineDetailDataStore)
+  {
+    destination.machineId = source.machineId
+    destination.displayMode = "edit"
+  }
 }

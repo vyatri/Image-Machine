@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol MachineDataRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToDetail(machineId: String, displayMode: String?)
 }
 
 protocol MachineDataDataPassing
@@ -29,32 +29,27 @@ class MachineDataRouter: NSObject, MachineDataRoutingLogic, MachineDataDataPassi
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToDetail(machineId: String, displayMode: String?)
+  {
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let destinationVC = storyboard.instantiateViewController(withIdentifier: "MachineDetail") as! MachineDetailViewController
+      var destinationDS = destinationVC.router!.dataStore!
+      passDataToDetail(destination: &destinationDS, machineId: machineId, displayMode: displayMode)
+      navigateToDetail(source: viewController!, destination: destinationVC)
+  }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: MachineDataViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToDetail(source: MachineDataViewController, destination: MachineDetailViewController)
+  {
+    source.show(destination, sender: nil)
+  }
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: MachineDataDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToDetail(destination: inout MachineDetailDataStore, machineId: String, displayMode: String?)
+  {
+    destination.machineId = machineId
+    destination.displayMode = displayMode
+  }
 }
