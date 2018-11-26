@@ -15,6 +15,9 @@ import UIKit
 protocol MachineDetailBusinessLogic
 {
     func fetchMachine(machineId: String)
+    func addMachine(newMachine:Machine)
+    func updateMachine(machine: Machine)
+    func removeMachine(machineId: String)
 }
 
 protocol MachineDetailDataStore
@@ -38,5 +41,35 @@ class MachineDetailInteractor: MachineDetailBusinessLogic, MachineDetailDataStor
         let machine = worker?.getData(machineId: machineId)
         
         presenter?.presentMachine(machine: machine!)
+    }
+    
+    func addMachine(newMachine: Machine) {
+        worker = MachineDetailWorker()
+        let _add: Bool = worker?.addMachine(newMachine) ?? false
+        if (_add) {
+            presenter?.actionCompleted()
+        } else {
+            presenter?.actionFailed(msg: "Unable to add new machine")
+        }
+    }
+    
+    func updateMachine(machine: Machine) {
+        worker = MachineDetailWorker()
+        let _update: Bool = worker?.updateMachine(machine) ?? false
+        if (_update) {
+            presenter?.actionCompleted()
+        } else {
+            presenter?.actionFailed(msg: "Unable to update machine")
+        }
+    }
+    
+    func removeMachine(machineId: String) {
+        worker = MachineDetailWorker()
+        let _remove: Bool = worker?.removeMachine(machineId: machineId) ?? false
+        if (_remove) {
+            presenter?.actionCompleted()
+        } else {
+            presenter?.actionFailed(msg: "Unable to remove machine")
+        }
     }
 }

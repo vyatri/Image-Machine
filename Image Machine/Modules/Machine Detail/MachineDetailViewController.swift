@@ -18,6 +18,8 @@ import Photos
 protocol MachineDetailDisplayLogic: class
 {
     func displayMachine(machine: Machine)
+    func actionCompletedAndLeave()
+    func actionFailed(message: String)
 }
 
 class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic, TLPhotosPickerViewControllerDelegate
@@ -118,68 +120,54 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     
     // MARK: - CRUD Machine
     
-    func addMachine() {
+    func checkValidity() -> Bool {
+        if form.validate().count > 0 {
+            let alert = UIAlertController(title: "Whoops", message: "Please fill up all fields", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+        let carousel = form.rowBy(tag: "images") as! CarouselRow
+        if carousel.Images.count < 1 {
+            let alert = UIAlertController(title: "Whoops", message: "Please attach at least one image", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+        return true
+    }
+    
+    func prepareMachineForAction() -> Machine {
         let values = form.values()
         let carousel = form.rowBy(tag: "images") as! CarouselRow
         let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: "\(values["QRCodeNumber"] as! Int)", lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
-        var machines = [Machine]()
-        if let data = UserDefaults.standard.data(forKey: "machines") {
-            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
-        }
-        machines.append(newMachine)
-        
-        do {
-            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
-            self.navigationController?.popViewController(animated: true)
-        } catch {
-            
-        }
+        return newMachine
+    }
+    
+    func addMachine() {
+        guard self.checkValidity() == true else { return }
+        let newMachine = self.prepareMachineForAction()
+        interactor?.addMachine(newMachine: newMachine)
     }
     
     func editMachine() {
-        let values = form.values()
-        let carousel = form.rowBy(tag: "images") as! CarouselRow
-        var machines = [Machine]()
-        if let data = UserDefaults.standard.data(forKey: "machines") {
-            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
-            var i = 0
-            machines.forEach { (_oldMachine) in
-                if _oldMachine.machineId == values["machineId"] as! String {
-                    let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: "\(values["QRCodeNumber"] as! Int)", lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
-                    machines.remove(at: i)
-                    machines.append(newMachine)
-                }
-                i += 1
-            }
-        }
-        
-        do {
-            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
-            self.navigationController?.popViewController(animated: true)
-        } catch {
-            
-        }
+        guard self.checkValidity() == true else { return }
+        let editedMachine = self.prepareMachineForAction()
+        interactor?.updateMachine(machine: editedMachine)
     }
     
     @IBAction func deleteMachine(_ sender: UIBarButtonItem) {
-        var machines = [Machine]()
-        if let data = UserDefaults.standard.data(forKey: "machines") {
-            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
-            var i = 0
-            machines.forEach { (_oldMachine) in
-                if _oldMachine.machineId == machineId {
-                    machines.remove(at: i)
-                }
-                i += 1
-            }
-        }
-        
-        do {
-            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
-            self.navigationController?.popViewController(animated: true)
-        } catch {
-            
-        }
+        interactor?.removeMachine(machineId: machineId)
+    }
+    
+    func actionCompletedAndLeave() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func actionFailed(message: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func displayMachine(machine: Machine)
@@ -223,6 +211,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 }
                 row.tag = "machineName"
                 row.add(rule: RuleRequired())
+                row.validationOptions = .validatesAlways
             }
             <<< TextRow(){ row in
                 row.title = "Type"
@@ -232,6 +221,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 }
                 row.tag = "machineType"
                 row.add(rule: RuleRequired())
+                row.validationOptions = .validatesAlways
             }
             <<< IntRow(){
                 $0.title = "QRCode No."
@@ -241,6 +231,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 }
                 $0.tag = "QRCodeNumber"
                 $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesAlways
             }
             <<< DateTimeRow() {
                 $0.title = "Last Maintenance"
@@ -251,6 +242,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 }
                 $0.tag = "LastMaintenanceDate"
                 $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesAlways
             }
             +++ Section("Images") {
                 $0.tag = "Images"

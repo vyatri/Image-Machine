@@ -15,16 +15,77 @@ import UIKit
 class MachineDetailWorker
 {
     func getData(machineId: String) -> Machine
-  {
-    var machine: Machine!
-    if let data = UserDefaults.standard.data(forKey: "machines") {
-        let machines = try! PropertyListDecoder().decode([Machine].self, from: data)
-        machines.forEach { (_machine) in
-            if _machine.machineId == machineId {
-                machine = _machine
+    {
+        var machine: Machine!
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            let machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+            machines.forEach { (_machine) in
+                if _machine.machineId == machineId {
+                    machine = _machine
+                }
             }
         }
+        return machine
     }
-    return machine
-  }
+    
+    func addMachine(_ newMachine: Machine) -> Bool
+    {
+        var machines = [Machine]()
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+        }
+        machines.append(newMachine)
+        
+        do {
+            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    func updateMachine(_ machine: Machine) -> Bool
+    {
+        var machines = [Machine]()
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+            var i = 0
+            machines.forEach { (_oldMachine) in
+                if _oldMachine.machineId == machine.machineId {
+                    machines.remove(at: i)
+                    machines.append(machine)
+                }
+                i += 1
+            }
+        }
+        
+        do {
+            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    func removeMachine(machineId: String) -> Bool
+    {
+        var machines = [Machine]()
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+            var i = 0
+            machines.forEach { (_oldMachine) in
+                if _oldMachine.machineId == machineId {
+                    machines.remove(at: i)
+                }
+                i += 1
+            }
+        }
+        
+        do {
+            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
+            return true
+        } catch {
+            return false
+        }
+    }
 }

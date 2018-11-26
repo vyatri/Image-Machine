@@ -14,17 +14,27 @@ import UIKit
 
 protocol MachineDetailPresentationLogic
 {
-  func presentMachine(machine: Machine)
+    func presentMachine(machine: Machine)
+    func actionCompleted()
+    func actionFailed(msg: String)
 }
 
 class MachineDetailPresenter: MachineDetailPresentationLogic
 {
-  weak var viewController: MachineDetailDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentMachine(machine: Machine)
-  {
-    viewController?.displayMachine(machine: machine)
-  }
+    weak var viewController: MachineDetailDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentMachine(machine: Machine)
+    {
+        viewController?.displayMachine(machine: machine)
+    }
+    
+    func actionCompleted() {
+        viewController?.actionCompletedAndLeave()
+    }
+    
+    func actionFailed(msg: String) {
+        viewController?.actionFailed(message: msg)
+    }
 }
