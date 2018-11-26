@@ -29,7 +29,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     var displayMode: String?
     var machine: Machine!
     var needReload: Bool = false
-    var photoAssets = [PHAsset]()
+    var photoAssets = [String]()
     
     // MARK: Object lifecycle
     
@@ -168,7 +168,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 $0.addButtonAction = #selector(openImagePicker)
                 $0.isEditingMode = true
                 if (displayMode! == "edit") {
-                    $0.Images = [] //machine.images
+                    $0.Images = self.photoAssets
                 } else {
                     $0.Images = self.photoAssets
                 }
@@ -203,7 +203,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
             }
             <<< CarouselRow(){
                 $0.isEditingMode = false
-                $0.Images = [] //machine.images
+                $0.Images = machine.images
         }
     }
     
@@ -214,6 +214,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
         configure.allowedLivePhotos = false
         configure.allowedVideo = false
         configure.allowedVideoRecording = false
+        configure.maxSelectedAssets = 10 - self.photoAssets.count
         viewController.configure = configure
         self.present(viewController, animated: true, completion: nil)
     }
@@ -234,7 +235,8 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     
     func addMachine() {
         let values = form.values()
-        let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: values["QRCodeNumber"] as! String, lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: [])
+        let carousel = form.rowBy(tag: "images") as! CarouselRow
+        let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: values["QRCodeNumber"] as! String, lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
         var machines = [Machine]()
         if let data = UserDefaults.standard.data(forKey: "machines") {
             machines = try! PropertyListDecoder().decode([Machine].self, from: data)
@@ -251,13 +253,14 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     
     func editMachine() {
         let values = form.values()
+        let carousel = form.rowBy(tag: "images") as! CarouselRow
         var machines = [Machine]()
         if let data = UserDefaults.standard.data(forKey: "machines") {
             machines = try! PropertyListDecoder().decode([Machine].self, from: data)
             var i = 0
             machines.forEach { (_oldMachine) in
                 if _oldMachine.machineId == values["machineId"] as! String {
-                    let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: values["QRCodeNumber"] as! String, lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: [])
+                    let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: values["QRCodeNumber"] as! String, lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
                     machines.remove(at: i)
                     machines.append(newMachine)
                 }
@@ -297,6 +300,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     func displaySomething(machine: Machine)
     {
         self.machine = machine
+        self.photoAssets = self.machine.images
         if needReload == false {
             if ((displayMode != nil) && (displayMode! == "edit")) {
                 self.setupEurekaForm()
@@ -313,7 +317,13 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     
     func dismissPhotoPicker(withPHAssets: [PHAsset]) {
         // if you want to used phasset.
-        self.photoAssets = withPHAssets
+        let carousel = form.rowBy(tag: "images") as! CarouselRow
+        self.photoAssets = carousel.Images
+        for anAsset in withPHAssets {
+            if !self.photoAssets.contains(anAsset.localIdentifier) {
+                self.photoAssets.append(anAsset.localIdentifier)
+            }
+        }
         if let section = form.sectionBy(tag: "Images") as Section? {
             form.remove(at: section.index!)
             form
@@ -325,7 +335,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                     $0.addButtonAction = #selector(openImagePicker)
                     $0.isEditingMode = true
                     if (displayMode! == "edit") {
-                        $0.Images = [] //machine.images
+                        $0.Images = self.photoAssets
                     } else {
                         $0.Images = self.photoAssets
                     }
@@ -337,6 +347,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     func canSelectAsset(phAsset: PHAsset) -> Bool {
         //Custom Rules & Display
         //You can decide in which case the selection of the cell could be forbidden.
-        return true
+        let carousel = form.rowBy(tag: "images") as! CarouselRow
+        return (carousel.Images.contains(phAsset.localIdentifier)) ? false : true
     }
 }
