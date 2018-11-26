@@ -19,6 +19,7 @@ class MachineDataWorker
     var machines = [Machine]()
     if let data = UserDefaults.standard.data(forKey: "machines") {
         machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+        machines.sort { return $0.machineName < $1.machineName }
     }
     return machines
   }

@@ -107,11 +107,13 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
         let alert = UIAlertController(title: "Sort by", message: "How do you want to sort the Machine Data", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Machine Name", style: .default , handler:{ (UIAlertAction)in
-            
+            self.MachineList.sort { return $0.machineName < $1.machineName }
+            self.machineDataTableView.reloadData()
         }))
         
         alert.addAction(UIAlertAction(title: "Machine Type", style: .default , handler:{ (UIAlertAction)in
-            
+            self.MachineList.sort { return $0.machineType < $1.machineType }
+            self.machineDataTableView.reloadData()
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
