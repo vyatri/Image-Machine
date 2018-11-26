@@ -145,11 +145,11 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 row.tag = "machineType"
                 row.add(rule: RuleRequired())
             }
-            <<< PhoneRow(){
+            <<< IntRow(){
                 $0.title = "QRCode No."
                 $0.placeholder = "And numbers here"
                 if (displayMode! == "edit") {
-                    $0.value = machine.QRCodeNumber
+                    $0.value = Int(machine.QRCodeNumber)
                 }
                 $0.tag = "QRCodeNumber"
                 $0.add(rule: RuleRequired())
@@ -240,7 +240,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     func addMachine() {
         let values = form.values()
         let carousel = form.rowBy(tag: "images") as! CarouselRow
-        let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: values["QRCodeNumber"] as! String, lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
+        let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: "\(values["QRCodeNumber"] as! Int)", lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
         var machines = [Machine]()
         if let data = UserDefaults.standard.data(forKey: "machines") {
             machines = try! PropertyListDecoder().decode([Machine].self, from: data)
@@ -264,7 +264,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
             var i = 0
             machines.forEach { (_oldMachine) in
                 if _oldMachine.machineId == values["machineId"] as! String {
-                    let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: values["QRCodeNumber"] as! String, lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
+                    let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: "\(values["QRCodeNumber"] as! Int)", lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
                     machines.remove(at: i)
                     machines.append(newMachine)
                 }
