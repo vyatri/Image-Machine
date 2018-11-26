@@ -134,6 +134,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                     row.value = machine.machineName
                 }
                 row.tag = "machineName"
+                row.add(rule: RuleRequired())
             }
             <<< TextRow(){ row in
                 row.title = "Type"
@@ -142,6 +143,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                     row.value = machine.machineType
                 }
                 row.tag = "machineType"
+                row.add(rule: RuleRequired())
             }
             <<< PhoneRow(){
                 $0.title = "QRCode No."
@@ -150,6 +152,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                     $0.value = machine.QRCodeNumber
                 }
                 $0.tag = "QRCodeNumber"
+                $0.add(rule: RuleRequired())
             }
             <<< DateTimeRow() {
                 $0.title = "Last Maintenance"
@@ -159,6 +162,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                     $0.value = Date(timeIntervalSinceReferenceDate: 0)
                 }
                 $0.tag = "LastMaintenanceDate"
+                $0.add(rule: RuleRequired())
             }
             +++ Section("Images") {
                 $0.tag = "Images"
