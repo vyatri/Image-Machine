@@ -1,0 +1,4 @@
+framework module SimpleImageViewer {
+  header "SimpleImageViewer-Swift.h"
+  requires objc
+}

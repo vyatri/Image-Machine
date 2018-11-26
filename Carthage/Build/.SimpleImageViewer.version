@@ -1,0 +1,9 @@
+{
+  "commitish" : "1.1.1",
+  "iOS" : [
+    {
+      "name" : "SimpleImageViewer",
+      "hash" : "e2b72ad8e3e3f73579cea8298a18a03804aed3f336c9f9d11d05c519c44379cc"
+    }
+  ]
+}

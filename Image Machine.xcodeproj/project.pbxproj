@@ -7,21 +7,94 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B214C28121AA3FB3000BB20A /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B214C28021AA3FB3000BB20A /* DataManager.swift */; };
 		B21B223321A8DF42000E794E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B223221A8DF42000E794E /* AppDelegate.swift */; };
-		B21B223521A8DF42000E794E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B223421A8DF42000E794E /* ViewController.swift */; };
 		B21B223821A8DF42000E794E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21B223621A8DF42000E794E /* Main.storyboard */; };
 		B21B223A21A8DF46000E794E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B21B223921A8DF46000E794E /* Assets.xcassets */; };
 		B21B223D21A8DF46000E794E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21B223B21A8DF46000E794E /* LaunchScreen.storyboard */; };
+		B21B224821A8F40D000E794E /* QRCodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224421A8F40D000E794E /* QRCodeReader.framework */; };
+		B21B224921A8F40D000E794E /* QRCodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224421A8F40D000E794E /* QRCodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B21B224A21A8F40D000E794E /* SimpleImageViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224521A8F40D000E794E /* SimpleImageViewer.framework */; };
+		B21B224B21A8F40D000E794E /* SimpleImageViewer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224521A8F40D000E794E /* SimpleImageViewer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B21B224C21A8F40D000E794E /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224621A8F40D000E794E /* Eureka.framework */; };
+		B21B224D21A8F40D000E794E /* Eureka.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224621A8F40D000E794E /* Eureka.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B21B224E21A8F40D000E794E /* TLPhotoPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224721A8F40D000E794E /* TLPhotoPicker.framework */; };
+		B21B224F21A8F40D000E794E /* TLPhotoPicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B21B224721A8F40D000E794E /* TLPhotoPicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B21B225C21A90B46000E794E /* MachineDataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225621A90B46000E794E /* MachineDataPresenter.swift */; };
+		B21B225D21A90B46000E794E /* MachineDataWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225721A90B46000E794E /* MachineDataWorker.swift */; };
+		B21B225E21A90B46000E794E /* MachineDataRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225821A90B46000E794E /* MachineDataRouter.swift */; };
+		B21B226021A90B46000E794E /* MachineDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225A21A90B46000E794E /* MachineDataViewController.swift */; };
+		B21B226121A90B46000E794E /* MachineDataInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225B21A90B46000E794E /* MachineDataInteractor.swift */; };
+		B21B226521A917A3000E794E /* MachineDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226421A917A3000E794E /* MachineDataCell.swift */; };
+		B21B226D21A93E11000E794E /* MachineDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226721A93E11000E794E /* MachineDetailPresenter.swift */; };
+		B21B226E21A93E11000E794E /* MachineDetailWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226821A93E11000E794E /* MachineDetailWorker.swift */; };
+		B21B226F21A93E11000E794E /* MachineDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226921A93E11000E794E /* MachineDetailRouter.swift */; };
+		B21B227121A93E11000E794E /* MachineDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226B21A93E11000E794E /* MachineDetailViewController.swift */; };
+		B21B227221A93E11000E794E /* MachineDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226C21A93E11000E794E /* MachineDetailInteractor.swift */; };
+		B21B227A21A93EA5000E794E /* MachineHomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227421A93EA5000E794E /* MachineHomePresenter.swift */; };
+		B21B227B21A93EA5000E794E /* MachineHomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227521A93EA5000E794E /* MachineHomeWorker.swift */; };
+		B21B227C21A93EA5000E794E /* MachineHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227621A93EA5000E794E /* MachineHomeRouter.swift */; };
+		B21B227E21A93EA5000E794E /* MachineHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227821A93EA5000E794E /* MachineHomeViewController.swift */; };
+		B21B227F21A93EA5000E794E /* MachineHomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227921A93EA5000E794E /* MachineHomeInteractor.swift */; };
+		B21B228321A94D80000E794E /* LongTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B228121A94D80000E794E /* LongTextCell.swift */; };
+		B21B228421A94D80000E794E /* LongTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B21B228221A94D80000E794E /* LongTextCell.xib */; };
+		B21B228721A953FD000E794E /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B228521A953FD000E794E /* CarouselCell.swift */; };
+		B21B228821A953FD000E794E /* CarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B21B228621A953FD000E794E /* CarouselCell.xib */; };
+		B21B228B21A9555A000E794E /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B228921A9555A000E794E /* ImageCell.swift */; };
+		B21B228C21A9555A000E794E /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B21B228A21A9555A000E794E /* ImageCell.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B21B225021A8F40D000E794E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B21B224D21A8F40D000E794E /* Eureka.framework in Embed Frameworks */,
+				B21B224B21A8F40D000E794E /* SimpleImageViewer.framework in Embed Frameworks */,
+				B21B224921A8F40D000E794E /* QRCodeReader.framework in Embed Frameworks */,
+				B21B224F21A8F40D000E794E /* TLPhotoPicker.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		B214C28021AA3FB3000BB20A /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		B21B222F21A8DF42000E794E /* Image Machine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Image Machine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B21B223221A8DF42000E794E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B21B223421A8DF42000E794E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B21B223721A8DF42000E794E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B21B223921A8DF46000E794E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B21B223C21A8DF46000E794E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B21B223E21A8DF46000E794E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B21B224421A8F40D000E794E /* QRCodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCodeReader.framework; path = Carthage/Build/iOS/QRCodeReader.framework; sourceTree = "<group>"; };
+		B21B224521A8F40D000E794E /* SimpleImageViewer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleImageViewer.framework; path = Carthage/Build/iOS/SimpleImageViewer.framework; sourceTree = "<group>"; };
+		B21B224621A8F40D000E794E /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = Carthage/Build/iOS/Eureka.framework; sourceTree = "<group>"; };
+		B21B224721A8F40D000E794E /* TLPhotoPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TLPhotoPicker.framework; path = Carthage/Build/iOS/TLPhotoPicker.framework; sourceTree = "<group>"; };
+		B21B225621A90B46000E794E /* MachineDataPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataPresenter.swift; sourceTree = "<group>"; };
+		B21B225721A90B46000E794E /* MachineDataWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataWorker.swift; sourceTree = "<group>"; };
+		B21B225821A90B46000E794E /* MachineDataRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataRouter.swift; sourceTree = "<group>"; };
+		B21B225A21A90B46000E794E /* MachineDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataViewController.swift; sourceTree = "<group>"; };
+		B21B225B21A90B46000E794E /* MachineDataInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataInteractor.swift; sourceTree = "<group>"; };
+		B21B226421A917A3000E794E /* MachineDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataCell.swift; sourceTree = "<group>"; };
+		B21B226721A93E11000E794E /* MachineDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailPresenter.swift; sourceTree = "<group>"; };
+		B21B226821A93E11000E794E /* MachineDetailWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailWorker.swift; sourceTree = "<group>"; };
+		B21B226921A93E11000E794E /* MachineDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailRouter.swift; sourceTree = "<group>"; };
+		B21B226B21A93E11000E794E /* MachineDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailViewController.swift; sourceTree = "<group>"; };
+		B21B226C21A93E11000E794E /* MachineDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailInteractor.swift; sourceTree = "<group>"; };
+		B21B227421A93EA5000E794E /* MachineHomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomePresenter.swift; sourceTree = "<group>"; };
+		B21B227521A93EA5000E794E /* MachineHomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeWorker.swift; sourceTree = "<group>"; };
+		B21B227621A93EA5000E794E /* MachineHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeRouter.swift; sourceTree = "<group>"; };
+		B21B227821A93EA5000E794E /* MachineHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeViewController.swift; sourceTree = "<group>"; };
+		B21B227921A93EA5000E794E /* MachineHomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeInteractor.swift; sourceTree = "<group>"; };
+		B21B228121A94D80000E794E /* LongTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextCell.swift; sourceTree = "<group>"; };
+		B21B228221A94D80000E794E /* LongTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LongTextCell.xib; sourceTree = "<group>"; };
+		B21B228521A953FD000E794E /* CarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
+		B21B228621A953FD000E794E /* CarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCell.xib; sourceTree = "<group>"; };
+		B21B228921A9555A000E794E /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		B21B228A21A9555A000E794E /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +102,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21B224C21A8F40D000E794E /* Eureka.framework in Frameworks */,
+				B21B224A21A8F40D000E794E /* SimpleImageViewer.framework in Frameworks */,
+				B21B224821A8F40D000E794E /* QRCodeReader.framework in Frameworks */,
+				B21B224E21A8F40D000E794E /* TLPhotoPicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				B21B223121A8DF42000E794E /* Image Machine */,
+				B21B225221A8F6EB000E794E /* Frameworks */,
 				B21B223021A8DF42000E794E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,13 +133,102 @@
 			isa = PBXGroup;
 			children = (
 				B21B223221A8DF42000E794E /* AppDelegate.swift */,
-				B21B223421A8DF42000E794E /* ViewController.swift */,
-				B21B223621A8DF42000E794E /* Main.storyboard */,
-				B21B223921A8DF46000E794E /* Assets.xcassets */,
-				B21B223B21A8DF46000E794E /* LaunchScreen.storyboard */,
+				B214C28021AA3FB3000BB20A /* DataManager.swift */,
+				B21B225521A90B24000E794E /* Modules */,
+				B21B225321A8F873000E794E /* Resources */,
 				B21B223E21A8DF46000E794E /* Info.plist */,
 			);
 			path = "Image Machine";
+			sourceTree = "<group>";
+		};
+		B21B225221A8F6EB000E794E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B21B224621A8F40D000E794E /* Eureka.framework */,
+				B21B224421A8F40D000E794E /* QRCodeReader.framework */,
+				B21B224521A8F40D000E794E /* SimpleImageViewer.framework */,
+				B21B224721A8F40D000E794E /* TLPhotoPicker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B21B225321A8F873000E794E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B21B223921A8DF46000E794E /* Assets.xcassets */,
+				B21B225421A8F897000E794E /* Storyboards */,
+				B21B228021A94D0B000E794E /* Cells */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B21B225421A8F897000E794E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				B21B223621A8DF42000E794E /* Main.storyboard */,
+				B21B223B21A8DF46000E794E /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		B21B225521A90B24000E794E /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				B21B227321A93E32000E794E /* Machine Home */,
+				B21B226221A90B57000E794E /* Machine Data */,
+				B21B226621A93DEF000E794E /* Machine Detail */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		B21B226221A90B57000E794E /* Machine Data */ = {
+			isa = PBXGroup;
+			children = (
+				B21B225621A90B46000E794E /* MachineDataPresenter.swift */,
+				B21B225721A90B46000E794E /* MachineDataWorker.swift */,
+				B21B225821A90B46000E794E /* MachineDataRouter.swift */,
+				B21B225A21A90B46000E794E /* MachineDataViewController.swift */,
+				B21B225B21A90B46000E794E /* MachineDataInteractor.swift */,
+			);
+			path = "Machine Data";
+			sourceTree = "<group>";
+		};
+		B21B226621A93DEF000E794E /* Machine Detail */ = {
+			isa = PBXGroup;
+			children = (
+				B21B226721A93E11000E794E /* MachineDetailPresenter.swift */,
+				B21B226821A93E11000E794E /* MachineDetailWorker.swift */,
+				B21B226921A93E11000E794E /* MachineDetailRouter.swift */,
+				B21B226B21A93E11000E794E /* MachineDetailViewController.swift */,
+				B21B226C21A93E11000E794E /* MachineDetailInteractor.swift */,
+			);
+			path = "Machine Detail";
+			sourceTree = "<group>";
+		};
+		B21B227321A93E32000E794E /* Machine Home */ = {
+			isa = PBXGroup;
+			children = (
+				B21B227421A93EA5000E794E /* MachineHomePresenter.swift */,
+				B21B227521A93EA5000E794E /* MachineHomeWorker.swift */,
+				B21B227621A93EA5000E794E /* MachineHomeRouter.swift */,
+				B21B227821A93EA5000E794E /* MachineHomeViewController.swift */,
+				B21B227921A93EA5000E794E /* MachineHomeInteractor.swift */,
+			);
+			path = "Machine Home";
+			sourceTree = "<group>";
+		};
+		B21B228021A94D0B000E794E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B21B226421A917A3000E794E /* MachineDataCell.swift */,
+				B21B228121A94D80000E794E /* LongTextCell.swift */,
+				B21B228221A94D80000E794E /* LongTextCell.xib */,
+				B21B228521A953FD000E794E /* CarouselCell.swift */,
+				B21B228621A953FD000E794E /* CarouselCell.xib */,
+				B21B228921A9555A000E794E /* ImageCell.swift */,
+				B21B228A21A9555A000E794E /* ImageCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +241,8 @@
 				B21B222B21A8DF42000E794E /* Sources */,
 				B21B222C21A8DF42000E794E /* Frameworks */,
 				B21B222D21A8DF42000E794E /* Resources */,
+				B21B225021A8F40D000E794E /* Embed Frameworks */,
+				B21B225121A8F448000E794E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -124,19 +293,65 @@
 			files = (
 				B21B223D21A8DF46000E794E /* LaunchScreen.storyboard in Resources */,
 				B21B223A21A8DF46000E794E /* Assets.xcassets in Resources */,
+				B21B228821A953FD000E794E /* CarouselCell.xib in Resources */,
+				B21B228C21A9555A000E794E /* ImageCell.xib in Resources */,
+				B21B228421A94D80000E794E /* LongTextCell.xib in Resources */,
 				B21B223821A8DF42000E794E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B21B225121A8F448000E794E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Eureka.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/QRCodeReader.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SimpleImageViewer.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TLPhotoPicker.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B21B222B21A8DF42000E794E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B21B223521A8DF42000E794E /* ViewController.swift in Sources */,
+				B21B226E21A93E11000E794E /* MachineDetailWorker.swift in Sources */,
+				B214C28121AA3FB3000BB20A /* DataManager.swift in Sources */,
+				B21B228321A94D80000E794E /* LongTextCell.swift in Sources */,
+				B21B226121A90B46000E794E /* MachineDataInteractor.swift in Sources */,
+				B21B227F21A93EA5000E794E /* MachineHomeInteractor.swift in Sources */,
+				B21B226D21A93E11000E794E /* MachineDetailPresenter.swift in Sources */,
+				B21B227221A93E11000E794E /* MachineDetailInteractor.swift in Sources */,
+				B21B226521A917A3000E794E /* MachineDataCell.swift in Sources */,
+				B21B227B21A93EA5000E794E /* MachineHomeWorker.swift in Sources */,
+				B21B225C21A90B46000E794E /* MachineDataPresenter.swift in Sources */,
 				B21B223321A8DF42000E794E /* AppDelegate.swift in Sources */,
+				B21B227E21A93EA5000E794E /* MachineHomeViewController.swift in Sources */,
+				B21B228721A953FD000E794E /* CarouselCell.swift in Sources */,
+				B21B227121A93E11000E794E /* MachineDetailViewController.swift in Sources */,
+				B21B227A21A93EA5000E794E /* MachineHomePresenter.swift in Sources */,
+				B21B227C21A93EA5000E794E /* MachineHomeRouter.swift in Sources */,
+				B21B225E21A90B46000E794E /* MachineDataRouter.swift in Sources */,
+				B21B228B21A9555A000E794E /* ImageCell.swift in Sources */,
+				B21B226F21A93E11000E794E /* MachineDetailRouter.swift in Sources */,
+				B21B225D21A90B46000E794E /* MachineDataWorker.swift in Sources */,
+				B21B226021A90B46000E794E /* MachineDataViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,8 +498,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YC8XZV676G;
+				DEVELOPMENT_TEAM = RGCZ5BLCUT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Image Machine/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -301,8 +521,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YC8XZV676G;
+				DEVELOPMENT_TEAM = RGCZ5BLCUT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Image Machine/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
