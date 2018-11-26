@@ -14,14 +14,14 @@ import UIKit
 
 class MachineHomeWorker
 {
-    func getData(machineId: String) -> String
+    func getData(machineQR: String) -> String
     {
         var foundId = ""
         if let data = UserDefaults.standard.data(forKey: "machines") {
             let machines = try! PropertyListDecoder().decode([Machine].self, from: data)
             machines.forEach { (_machine) in
-                if _machine.machineId == machineId {
-                    foundId = machineId
+                if _machine.QRCodeNumber == machineQR {
+                    foundId = _machine.machineId
                 }
             }
         }
