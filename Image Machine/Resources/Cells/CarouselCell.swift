@@ -9,6 +9,7 @@
 import UIKit
 import Eureka
 import Photos
+import SimpleImageViewer
 
 open class CarouselCell: Cell<String>, CellType, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -82,6 +83,21 @@ open class CarouselCell: Cell<String>, CellType, UICollectionViewDelegate, UICol
             cell.setData(phAssets[indexPath.item], isEditingMode: false)
         }
         return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell: ImageCell = collectionView.cellForItem(at: collectionView.indexPathsForSelectedItems![0]) as! ImageCell
+        let configuration = ImageViewerConfiguration { config in
+            config.imageView = cell.imagevw
+        }
+        
+        let imageViewerController = ImageViewerController(configuration: configuration)
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            topController.present(imageViewerController, animated: true, completion: nil)
+        }
     }
     
     @objc func removeImage(_ sender:UIButton) {

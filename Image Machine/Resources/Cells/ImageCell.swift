@@ -23,7 +23,7 @@ class ImageCell: UICollectionViewCell {
     func setData(_ image: PHAsset, isEditingMode: Bool) {
         imagevw.image = nil
         
-        imgManager.requestImage(for: image, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil) { (img, err) in
+        imgManager.requestImage(for: image, targetSize: CGSize(width: 500, height: 500), contentMode: .aspectFill, options: nil) { (img, err) in
             self.imagevw.image = img
         }
         closeButton.isHidden = (isEditingMode) ? false : true
