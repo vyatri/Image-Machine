@@ -14,7 +14,7 @@ import UIKit
 
 protocol MachineHomeBusinessLogic
 {
-  func openDetail(machineId: String)
+  func openDetail(machineQR: String)
 }
 
 protocol MachineHomeDataStore
@@ -30,11 +30,13 @@ class MachineHomeInteractor: MachineHomeBusinessLogic, MachineHomeDataStore
   
   // MARK: Do something
   
-  func openDetail(machineId: String)
+  func openDetail(machineQR: String)
   {
     worker = MachineHomeWorker()
-    if let foundId = worker?.getData(machineId: machineId), foundId != "" {
-        presenter?.presentSomething(machineId: foundId)
+    if let foundId = worker?.getData(machineQR: machineQR), foundId != "" {
+        presenter?.presentSomething(machineId: foundId, QRCode: machineQR)
+    } else {
+        presenter?.presentSomething(machineId:"", QRCode: machineQR)
     }
   }
 }
