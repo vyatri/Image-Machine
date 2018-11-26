@@ -8,11 +8,12 @@
 
 import UIKit
 import Eureka
+import Photos
 
 open class CarouselCell: Cell<String>, CellType, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var addButton: UIButton!
-    var Images: [UIImage]?
+    var Images: [PHAsset] = []
     @IBOutlet weak var clView: UICollectionView!
     var CarouselRow: CarouselRow_! {
         return row as? CarouselRow_
@@ -22,6 +23,8 @@ open class CarouselCell: Cell<String>, CellType, UICollectionViewDelegate, UICol
         super.awakeFromNib()
         // Initialization code
         clView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: "ImageCell")
+        clView.delegate = self
+        clView.dataSource = self
     }
 
     override open func update() {
@@ -30,14 +33,15 @@ open class CarouselCell: Cell<String>, CellType, UICollectionViewDelegate, UICol
         if (CarouselRow.isEditingMode) {
             addButton.removeTarget(nil, action: nil, for: .allEvents)
             addButton.addTarget(CarouselRow.addButtonTarget, action: CarouselRow.addButtonAction, for: .touchUpInside)
-            clView.isHidden = (Images?.count ?? 0 < 1) ? true : false
-            addButton.isEnabled = (Images?.count ?? 0 < 10) ? true : false
+            clView.isHidden = (Images.count < 1) ? true : false
+            addButton.isEnabled = (Images.count < 10) ? true : false
             addButton .setTitle("+ Add Images", for: .normal)
         } else {
             addButton .setTitle("No images here", for: .disabled)
             addButton.isEnabled = false
             clView.isHidden = true
         }
+        clView.reloadData()
     }
     
     override open func setSelected(_ selected: Bool, animated: Bool) {
@@ -47,7 +51,7 @@ open class CarouselCell: Cell<String>, CellType, UICollectionViewDelegate, UICol
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Images?.count ?? 0
+        return Images.count
     }
     
     private func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -58,22 +62,25 @@ open class CarouselCell: Cell<String>, CellType, UICollectionViewDelegate, UICol
         let cell: ImageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         cell.closeButton.removeTarget(nil, action: nil, for: .allEvents)
         if (CarouselRow.isEditingMode) {
+            cell.setData(Images[indexPath.item], isEditingMode: true)
             cell.closeButton.layer.setValue(indexPath, forKey: "indexpath")
             cell.closeButton.addTarget(self, action: #selector(removeImage(_:)), for: .touchUpInside)
+        } else {
+            cell.setData(Images[indexPath.item], isEditingMode: false)
         }
         return cell
     }
     
     @objc func removeImage(_ sender:UIButton) {
         let indexpath: IndexPath = sender.layer.value(forKey: "indexpath") as! IndexPath
-        Images?.remove(at: indexpath.item)
+        Images.remove(at: indexpath.item)
         clView.reloadData()
     }
 }
 
 open class CarouselRow_: Row<CarouselCell> {
     
-    open var Images: [UIImage]? = []
+    open var Images: [PHAsset] = []
     open var isEditingMode: Bool = false
     open var addButtonAction: Selector!
     open var addButtonTarget: UIViewController!

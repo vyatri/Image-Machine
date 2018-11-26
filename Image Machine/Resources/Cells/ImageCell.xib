@@ -23,11 +23,11 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-Sa-LCf">
-                        <rect key="frame" x="60" y="0.0" width="40" height="40"/>
+                        <rect key="frame" x="75" y="-5" width="30" height="30"/>
                         <color key="backgroundColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="TZd-K2-Ofw"/>
-                            <constraint firstAttribute="height" constant="40" id="oPg-Wu-uVS"/>
+                            <constraint firstAttribute="width" constant="30" id="TZd-K2-Ofw"/>
+                            <constraint firstAttribute="height" constant="30" id="oPg-Wu-uVS"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="15"/>
                         <state key="normal" title="x">
@@ -35,7 +35,7 @@
                         </state>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="20"/>
+                                <integer key="value" value="15"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </button>
@@ -44,8 +44,8 @@
             <constraints>
                 <constraint firstItem="N88-59-uJp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="8IC-fZ-6qh"/>
                 <constraint firstItem="N88-59-uJp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="FrB-Wt-Xyt"/>
-                <constraint firstAttribute="trailing" secondItem="f6i-Sa-LCf" secondAttribute="trailing" id="QMp-Ae-j1Q"/>
-                <constraint firstItem="f6i-Sa-LCf" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Shr-ZN-klE"/>
+                <constraint firstAttribute="trailing" secondItem="f6i-Sa-LCf" secondAttribute="trailing" constant="-5" id="QMp-Ae-j1Q"/>
+                <constraint firstItem="f6i-Sa-LCf" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-5" id="Shr-ZN-klE"/>
                 <constraint firstAttribute="bottom" secondItem="N88-59-uJp" secondAttribute="bottom" id="iCn-aY-6MF"/>
                 <constraint firstAttribute="trailing" secondItem="N88-59-uJp" secondAttribute="trailing" id="zBC-ip-tKb"/>
             </constraints>

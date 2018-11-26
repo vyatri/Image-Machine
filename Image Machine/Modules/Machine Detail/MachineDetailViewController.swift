@@ -13,13 +13,14 @@
 import UIKit
 import Eureka
 import TLPhotoPicker
+import Photos
 
 protocol MachineDetailDisplayLogic: class
 {
     func displaySomething(machine: Machine)
 }
 
-class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
+class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic, TLPhotosPickerViewControllerDelegate
 {
     
     var interactor: MachineDetailBusinessLogic?
@@ -28,6 +29,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     var displayMode: String?
     var machine: Machine!
     var needReload: Bool = false
+    var photoAssets = [PHAsset]()
     
     // MARK: Object lifecycle
     
@@ -158,7 +160,9 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 }
                 $0.tag = "LastMaintenanceDate"
             }
-            +++ Section("Images")
+            +++ Section("Images") {
+                $0.tag = "Images"
+            }
             <<< CarouselRow(){
                 $0.addButtonTarget = self
                 $0.addButtonAction = #selector(openImagePicker)
@@ -166,10 +170,9 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 if (displayMode! == "edit") {
                     $0.Images = [] //machine.images
                 } else {
-                    $0.Images = []
+                    $0.Images = self.photoAssets
                 }
                 $0.tag = "images"
-            
         }
     }
     
@@ -195,7 +198,9 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
             <<< LongTextRow() {
                 $0.text = DateFormatter.localizedString(from: machine.lastMaintenanceDate, dateStyle: .short, timeStyle: .short)
             }
-            +++ Section("Images")
+            +++ Section("Images") {
+                $0.tag = "Images"
+            }
             <<< CarouselRow(){
                 $0.isEditingMode = false
                 $0.Images = [] //machine.images
@@ -204,7 +209,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     
     @objc func openImagePicker() {
         let viewController = TLPhotosPickerViewController()
-//        viewController.delegate = self
+        viewController.delegate = self
         var configure = TLPhotosPickerConfigure()
         configure.allowedLivePhotos = false
         configure.allowedVideo = false
@@ -212,7 +217,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
         viewController.configure = configure
         self.present(viewController, animated: true, completion: nil)
     }
-
+    
     @IBAction func rightNavButtonTapped(_ sender: UIBarButtonItem) {
         self.view.endEditing(true)
         if sender == saveButton {
@@ -302,5 +307,36 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
             form.removeAll()
             self.setupEurekaDisplay()
         }
+    }
+    
+    // MARK: - Photo picker delegate
+    
+    func dismissPhotoPicker(withPHAssets: [PHAsset]) {
+        // if you want to used phasset.
+        self.photoAssets = withPHAssets
+        if let section = form.sectionBy(tag: "Images") as Section? {
+            form.remove(at: section.index!)
+            form
+                +++ Section("Images") {
+                    $0.tag = "Images"
+                }
+                <<< CarouselRow(){
+                    $0.addButtonTarget = self
+                    $0.addButtonAction = #selector(openImagePicker)
+                    $0.isEditingMode = true
+                    if (displayMode! == "edit") {
+                        $0.Images = [] //machine.images
+                    } else {
+                        $0.Images = self.photoAssets
+                    }
+                    $0.tag = "images"
+            }
+        }
+    }
+    
+    func canSelectAsset(phAsset: PHAsset) -> Bool {
+        //Custom Rules & Display
+        //You can decide in which case the selection of the cell could be forbidden.
+        return true
     }
 }

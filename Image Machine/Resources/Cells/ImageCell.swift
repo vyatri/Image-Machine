@@ -7,19 +7,24 @@
 //
 
 import UIKit
+import Photos
 
 class ImageCell: UICollectionViewCell {
 
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var imagevw: UIImageView!
+    let imgManager = PHImageManager.default()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    func setData(_ image: UIImage, isEditingMode: Bool) {
-        imagevw.image = image
+    func setData(_ image: PHAsset, isEditingMode: Bool) {
+        imagevw.image = nil
+        imgManager.requestImage(for: image, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil) { (img, err) in
+            self.imagevw.image = img
+        }
         closeButton.isHidden = (isEditingMode) ? false : true
     }
 }
