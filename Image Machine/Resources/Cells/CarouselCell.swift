@@ -75,6 +75,8 @@ open class CarouselCell: Cell<String>, CellType, UICollectionViewDelegate, UICol
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ImageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         cell.closeButton.removeTarget(nil, action: nil, for: .allEvents)
+        cell.imagevw.image = UIImage()
+        cell.closeButton.layer.setValue(nil, forKey: "indexpath")
         if (CarouselRow.isEditingMode) {
             cell.setData(phAssets[indexPath.item], isEditingMode: true)
             cell.closeButton.layer.setValue(indexPath, forKey: "indexpath")
