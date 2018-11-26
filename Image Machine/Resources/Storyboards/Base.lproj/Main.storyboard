@@ -36,6 +36,9 @@
                                             <constraint firstAttribute="height" constant="50" id="czm-Ql-ho4"/>
                                         </constraints>
                                         <state key="normal" title="Code Reader"/>
+                                        <connections>
+                                            <action selector="scanAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g0x-BN-bCd"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -226,6 +229,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="uCg-9d-gmC"/>
+        <segue reference="ta0-Jf-vlR"/>
     </inferredMetricsTieBreakers>
 </document>

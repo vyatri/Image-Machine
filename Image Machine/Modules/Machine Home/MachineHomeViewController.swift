@@ -16,7 +16,7 @@ import QRCodeReader
 
 protocol MachineHomeDisplayLogic: class
 {
-    func displaySomething(machineId: String)
+    func displaySomething(machineId: String, QRCode: String)
 }
 
 class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCodeReaderViewControllerDelegate
@@ -82,10 +82,14 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
     {
     }
     
-    func displaySomething(machineId: String)
+    func displaySomething(machineId: String, QRCode: String)
     {
         if machineId != "" {
-            
+            router!.routeToDetail(machineId: machineId)
+        } else {
+            let alert = UIAlertController(title: "Not Found", message: "You are looking for Machine with QRCode \(QRCode). But the data is not found", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -109,10 +113,7 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
 
-            // Check Machine QRCode number here
-            if let machineId = result?.value {
-                self.interactor?.openDetail(machineId: machineId)
-            }
+            
         }
         
         // Presents the readerVC as modal form sheet
@@ -126,6 +127,10 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
         reader.stopScanning()
         
         dismiss(animated: true, completion: nil)
+        // Check Machine QRCode number here
+        var machineQR = result.value.replacingOccurrences(of: "http://", with: "")
+        machineQR = machineQR.replacingOccurrences(of: "https://", with: "")
+        self.interactor?.openDetail(machineQR: machineQR)
     }
     
     //This is an optional delegate method, that allows you to be notified when the user switches the cameraName

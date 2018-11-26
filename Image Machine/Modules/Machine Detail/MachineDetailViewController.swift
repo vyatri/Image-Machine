@@ -159,7 +159,7 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
                 if (displayMode! == "edit") {
                     $0.value = machine.lastMaintenanceDate
                 } else {
-                    $0.value = Date(timeIntervalSinceReferenceDate: 0)
+                    $0.value = Date()
                 }
                 $0.tag = "LastMaintenanceDate"
                 $0.add(rule: RuleRequired())
