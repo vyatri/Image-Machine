@@ -14,12 +14,16 @@ import UIKit
 
 class MachineDataWorker
 {
-  func getList() -> [Machine]
+  func getList(sortBy:String) -> [Machine]
   {
     var machines = [Machine]()
     if let data = UserDefaults.standard.data(forKey: "machines") {
         machines = try! PropertyListDecoder().decode([Machine].self, from: data)
-        machines.sort { return $0.machineName < $1.machineName }
+        if sortBy == "type" {
+            machines.sort { return $0.machineType < $1.machineType }
+        } else {
+            machines.sort { return $0.machineName < $1.machineName }
+        }
     }
     return machines
   }

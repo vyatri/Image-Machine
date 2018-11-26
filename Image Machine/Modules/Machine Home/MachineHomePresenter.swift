@@ -14,7 +14,7 @@ import UIKit
 
 protocol MachineHomePresentationLogic
 {
-  func presentSomething(machineId: String, QRCode: String)
+  func presentScannedData(machineId: String, QRCode: String)
 }
 
 class MachineHomePresenter: MachineHomePresentationLogic
@@ -23,8 +23,8 @@ class MachineHomePresenter: MachineHomePresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(machineId: String, QRCode: String)
+  func presentScannedData(machineId: String, QRCode: String)
   {
-    viewController?.displaySomething(machineId: machineId, QRCode: QRCode)
+    viewController?.displayScannedData(machineId: machineId, QRCode: QRCode)
   }
 }

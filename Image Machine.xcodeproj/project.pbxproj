@@ -189,7 +189,6 @@
 				B21B225821A90B46000E794E /* MachineDataRouter.swift */,
 				B21B225A21A90B46000E794E /* MachineDataViewController.swift */,
 				B21B225B21A90B46000E794E /* MachineDataInteractor.swift */,
-				B21B226421A917A3000E794E /* MachineDataCell.swift */,
 			);
 			path = "Machine Data";
 			sourceTree = "<group>";
@@ -221,6 +220,7 @@
 		B21B228021A94D0B000E794E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B21B226421A917A3000E794E /* MachineDataCell.swift */,
 				B21B228121A94D80000E794E /* LongTextCell.swift */,
 				B21B228221A94D80000E794E /* LongTextCell.xib */,
 				B21B228521A953FD000E794E /* CarouselCell.swift */,

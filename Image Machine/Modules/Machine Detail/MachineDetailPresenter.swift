@@ -14,7 +14,7 @@ import UIKit
 
 protocol MachineDetailPresentationLogic
 {
-  func presentSomething(machine: Machine)
+  func presentMachine(machine: Machine)
 }
 
 class MachineDetailPresenter: MachineDetailPresentationLogic
@@ -23,8 +23,8 @@ class MachineDetailPresenter: MachineDetailPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(machine: Machine)
+  func presentMachine(machine: Machine)
   {
-    viewController?.displaySomething(machine: machine)
+    viewController?.displayMachine(machine: machine)
   }
 }

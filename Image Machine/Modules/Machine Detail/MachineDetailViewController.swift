@@ -17,7 +17,7 @@ import Photos
 
 protocol MachineDetailDisplayLogic: class
 {
-    func displaySomething(machine: Machine)
+    func displayMachine(machine: Machine)
 }
 
 class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic, TLPhotosPickerViewControllerDelegate
@@ -25,11 +25,16 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     
     var interactor: MachineDetailBusinessLogic?
     var router: (NSObjectProtocol & MachineDetailRoutingLogic & MachineDetailDataPassing)?
+    
     var machineId: String!
     var displayMode: String?
     var machine: Machine!
     var needReload: Bool = false
     var photoAssets = [String]()
+    
+    @IBOutlet weak var trashButton: UIBarButtonItem!
+    @IBOutlet weak var rightNavButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     // MARK: Object lifecycle
     
@@ -61,23 +66,24 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
         router.dataStore = interactor
     }
     
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-    
     // MARK: View lifecycle
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.setupDisplay()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if displayMode! == "view" && needReload == true {
+            interactor?.fetchMachine(machineId: machineId)
+        }
+    }
+    
+    // MARK: - Main functions
+    
+    func setupDisplay() {
         machineId = (router?.dataStore?.machineId)!
         displayMode = (router?.dataStore?.displayMode)!
         self.navigationItem.rightBarButtonItems = nil
@@ -91,26 +97,108 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
             self.navigationItem.rightBarButtonItem = nil
             self.navigationItem.rightBarButtonItems = [trashButton, rightNavButton]
         }
+        interactor?.fetchMachine(machineId: machineId)
+    }
+    
+    // MARK: - Right Nav action button
+    
+    @IBAction func rightNavButtonTapped(_ sender: UIBarButtonItem) {
+        self.view.endEditing(true)
+        if sender == saveButton {
+            if displayMode == "add" {
+                self.addMachine()
+            } else {
+                self.editMachine()
+            }
+        } else {
+            needReload = true
+            router?.routeToEdit(machineId: machineId)
+        }
+    }
+    
+    // MARK: - CRUD Machine
+    
+    func addMachine() {
+        let values = form.values()
+        let carousel = form.rowBy(tag: "images") as! CarouselRow
+        let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: "\(values["QRCodeNumber"] as! Int)", lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
+        var machines = [Machine]()
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+        }
+        machines.append(newMachine)
         
-        if (needReload == false) {
-            interactor?.doSomething(machineId: machineId)
+        do {
+            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
+            self.navigationController?.popViewController(animated: true)
+        } catch {
+            
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if displayMode! == "view" && needReload == true {
-            interactor?.doSomething(machineId: machineId)
+    func editMachine() {
+        let values = form.values()
+        let carousel = form.rowBy(tag: "images") as! CarouselRow
+        var machines = [Machine]()
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+            var i = 0
+            machines.forEach { (_oldMachine) in
+                if _oldMachine.machineId == values["machineId"] as! String {
+                    let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: "\(values["QRCodeNumber"] as! Int)", lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
+                    machines.remove(at: i)
+                    machines.append(newMachine)
+                }
+                i += 1
+            }
+        }
+        
+        do {
+            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
+            self.navigationController?.popViewController(animated: true)
+        } catch {
+            
         }
     }
     
-    // MARK: Do something
+    @IBAction func deleteMachine(_ sender: UIBarButtonItem) {
+        var machines = [Machine]()
+        if let data = UserDefaults.standard.data(forKey: "machines") {
+            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
+            var i = 0
+            machines.forEach { (_oldMachine) in
+                if _oldMachine.machineId == machineId {
+                    machines.remove(at: i)
+                }
+                i += 1
+            }
+        }
+        
+        do {
+            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
+            self.navigationController?.popViewController(animated: true)
+        } catch {
+            
+        }
+    }
     
-    @IBOutlet weak var trashButton: UIBarButtonItem!
-    @IBOutlet weak var rightNavButton: UIBarButtonItem!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
+    func displayMachine(machine: Machine)
+    {
+        self.machine = machine
+        self.photoAssets = self.machine.images
+        if needReload == false {
+            if ((displayMode != nil) && (displayMode! == "edit")) {
+                self.setupEurekaForm()
+            } else {
+                self.setupEurekaDisplay()
+            }
+        } else {
+            form.removeAll()
+            self.setupEurekaDisplay()
+        }
+    }
     
-    
+    // MARK: - Eureka Form setup
     
     func setupEurekaForm()
     {
@@ -211,6 +299,8 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
         }
     }
     
+    // MARK: - Photo picker stuffs and delegate
+    
     @objc func openImagePicker() {
         let viewController = TLPhotosPickerViewController()
         viewController.delegate = self
@@ -222,102 +312,6 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
         viewController.configure = configure
         self.present(viewController, animated: true, completion: nil)
     }
-    
-    @IBAction func rightNavButtonTapped(_ sender: UIBarButtonItem) {
-        self.view.endEditing(true)
-        if sender == saveButton {
-            if displayMode == "add" {
-                self.addMachine()
-            } else {
-                self.editMachine()
-            }
-        } else {
-            needReload = true
-            router?.routeToEdit(machineId: machineId)
-        }
-    }
-    
-    func addMachine() {
-        let values = form.values()
-        let carousel = form.rowBy(tag: "images") as! CarouselRow
-        let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: "\(values["QRCodeNumber"] as! Int)", lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
-        var machines = [Machine]()
-        if let data = UserDefaults.standard.data(forKey: "machines") {
-            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
-        }
-        machines.append(newMachine)
-        
-        do {
-            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
-            self.navigationController?.popViewController(animated: true)
-        } catch {
-            
-        }
-    }
-    
-    func editMachine() {
-        let values = form.values()
-        let carousel = form.rowBy(tag: "images") as! CarouselRow
-        var machines = [Machine]()
-        if let data = UserDefaults.standard.data(forKey: "machines") {
-            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
-            var i = 0
-            machines.forEach { (_oldMachine) in
-                if _oldMachine.machineId == values["machineId"] as! String {
-                    let newMachine = Machine(machineId: values["machineId"] as! String, machineName: values["machineName"] as! String, machineType: values["machineType"] as! String, QRCodeNumber: "\(values["QRCodeNumber"] as! Int)", lastMaintenanceDate: values["LastMaintenanceDate"] as! Date, images: carousel.Images)
-                    machines.remove(at: i)
-                    machines.append(newMachine)
-                }
-                i += 1
-            }
-        }
-        
-        do {
-            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
-            self.navigationController?.popViewController(animated: true)
-        } catch {
-            
-        }
-    }
-    
-    @IBAction func deleteMachine(_ sender: UIBarButtonItem) {
-        var machines = [Machine]()
-        if let data = UserDefaults.standard.data(forKey: "machines") {
-            machines = try! PropertyListDecoder().decode([Machine].self, from: data)
-            var i = 0
-            machines.forEach { (_oldMachine) in
-                if _oldMachine.machineId == machineId {
-                    machines.remove(at: i)
-                }
-                i += 1
-            }
-        }
-        
-        do {
-            try UserDefaults.standard.set(PropertyListEncoder().encode(machines), forKey: "machines")
-            self.navigationController?.popViewController(animated: true)
-        } catch {
-            
-        }
-    }
-    
-    func displaySomething(machine: Machine)
-    {
-        self.machine = machine
-        self.photoAssets = self.machine.images
-        if needReload == false {
-            if ((displayMode != nil) && (displayMode! == "edit")) {
-                self.setupEurekaForm()
-            } else {
-                self.setupEurekaDisplay()
-            }
-        } else {
-            form.removeAll()
-            self.setupEurekaDisplay()
-        }
-    }
-    
-    // MARK: - Photo picker delegate
     
     func dismissPhotoPicker(withPHAssets: [PHAsset]) {
         // if you want to used phasset.
@@ -349,8 +343,6 @@ class MachineDetailViewController: FormViewController, MachineDetailDisplayLogic
     }
     
     func canSelectAsset(phAsset: PHAsset) -> Bool {
-        //Custom Rules & Display
-        //You can decide in which case the selection of the cell could be forbidden.
         let carousel = form.rowBy(tag: "images") as! CarouselRow
         return (carousel.Images.contains(phAsset.localIdentifier)) ? false : true
     }

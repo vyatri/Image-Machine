@@ -15,13 +15,17 @@ import UIKit
 // Sent from Presenter
 protocol MachineDataDisplayLogic: class
 {
-    func displaySomething(machines: [Machine])
+    func displayMachines(machines: [Machine])
 }
 
 class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITableViewDelegate, UITableViewDataSource
 {
     var interactor: MachineDataBusinessLogic?
     var router: (NSObjectProtocol & MachineDataRoutingLogic & MachineDataDataPassing)?
+    
+    @IBOutlet weak var machineDataTableView: UITableView!
+    var MachineList: [Machine]! = []
+    var sortBy = "name"
     
     // MARK: Object lifecycle
     
@@ -53,18 +57,6 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
         router.dataStore = interactor
     }
     
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-    
     // MARK: View lifecycle
     
     override func viewDidLoad()
@@ -75,27 +67,33 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        interactor?.doSomething()
+        interactor?.parseMachines(sortBy: sortBy)
     }
     
-    // MARK: - Constants and Variables
-    
-    @IBOutlet weak var machineDataTableView: UITableView!
-    var MachineList: [Machine]! = []
-    
     // MARK: - Main functions
+    
     func setupDisplay()
     {
         machineDataTableView.rowHeight = UITableView.automaticDimension
         machineDataTableView.estimatedRowHeight = 63
-        
-        interactor?.doSomething()
     }
     
-    func displaySomething(machines: [Machine])
+    func displayMachines(machines: [Machine])
     {
         MachineList = machines
         machineDataTableView.reloadData()
+    }
+    
+    func sortByName() {
+        sortBy = "name"
+        self.MachineList.sort { return $0.machineName < $1.machineName }
+        self.machineDataTableView.reloadData()
+    }
+    
+    func sortByType() {
+        sortBy = "type"
+        self.MachineList.sort { return $0.machineType < $1.machineType }
+        self.machineDataTableView.reloadData()
     }
     
     // MARK: - Actions
@@ -105,13 +103,11 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
         let alert = UIAlertController(title: "Sort by", message: "How do you want to sort the Machine Data", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Machine Name", style: .default , handler:{ (UIAlertAction)in
-            self.MachineList.sort { return $0.machineName < $1.machineName }
-            self.machineDataTableView.reloadData()
+            self.sortByName()
         }))
         
         alert.addAction(UIAlertAction(title: "Machine Type", style: .default , handler:{ (UIAlertAction)in
-            self.MachineList.sort { return $0.machineType < $1.machineType }
-            self.machineDataTableView.reloadData()
+            self.sortByType()
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))

@@ -34,9 +34,9 @@ class MachineHomeInteractor: MachineHomeBusinessLogic, MachineHomeDataStore
   {
     worker = MachineHomeWorker()
     if let foundId = worker?.getData(machineQR: machineQR), foundId != "" {
-        presenter?.presentSomething(machineId: foundId, QRCode: machineQR)
+        presenter?.presentScannedData(machineId: foundId, QRCode: machineQR)
     } else {
-        presenter?.presentSomething(machineId:"", QRCode: machineQR)
+        presenter?.presentScannedData(machineId:"", QRCode: machineQR)
     }
   }
 }

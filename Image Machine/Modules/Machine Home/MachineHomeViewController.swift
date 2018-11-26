@@ -16,7 +16,7 @@ import QRCodeReader
 
 protocol MachineHomeDisplayLogic: class
 {
-    func displaySomething(machineId: String, QRCode: String)
+    func displayScannedData(machineId: String, QRCode: String)
 }
 
 class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCodeReaderViewControllerDelegate
@@ -54,35 +54,14 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
         router.dataStore = interactor
     }
     
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-    
     // MARK: View lifecycle
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-    }
-    
-    func displaySomething(machineId: String, QRCode: String)
+    func displayScannedData(machineId: String, QRCode: String)
     {
         if machineId != "" {
             router!.routeToDetail(machineId: machineId)
@@ -93,10 +72,8 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
         }
     }
     
-    // MARK: - QR Code Reader Delegate
+    // MARK: - QR Code Stuffs
     
-    // Good practice: create the reader lazily to avoid cpu overload during the
-    // initialization and each time we need to scan a QRCode
     lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
             $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
@@ -113,15 +90,12 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
 
-            
         }
         
         // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet
         present(readerVC, animated: true, completion: nil)
     }
-    
-    // MARK: - QRCodeReaderViewController Delegate Methods
     
     func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
         reader.stopScanning()
@@ -132,8 +106,6 @@ class MachineHomeViewController: UIViewController, MachineHomeDisplayLogic, QRCo
         machineQR = machineQR.replacingOccurrences(of: "https://", with: "")
         self.interactor?.openDetail(machineQR: machineQR)
     }
-    
-    //This is an optional delegate method, that allows you to be notified when the user switches the cameraName
     
     func readerDidCancel(_ reader: QRCodeReaderViewController) {
         reader.stopScanning()

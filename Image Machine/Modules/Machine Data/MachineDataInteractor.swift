@@ -14,7 +14,7 @@ import UIKit
 
 protocol MachineDataBusinessLogic
 {
-  func doSomething()
+    func parseMachines(sortBy:String)
 }
 
 protocol MachineDataDataStore
@@ -26,15 +26,12 @@ class MachineDataInteractor: MachineDataBusinessLogic, MachineDataDataStore
 {
   var presenter: MachineDataPresentationLogic?
   var worker: MachineDataWorker?
-  //var name: String = ""
   
-  // MARK: Do something
-  
-  func doSomething()
+  func parseMachines(sortBy:String)
   {
     worker = MachineDataWorker()
-    let machines = worker?.getList()
+    let machines = worker?.getList(sortBy:sortBy)
     
-    presenter?.presentSomething(machines: machines ?? [])
+    presenter?.presentMachines(machines: machines ?? [])
   }
 }
