@@ -23,20 +23,17 @@
 		B21B225C21A90B46000E794E /* MachineDataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225621A90B46000E794E /* MachineDataPresenter.swift */; };
 		B21B225D21A90B46000E794E /* MachineDataWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225721A90B46000E794E /* MachineDataWorker.swift */; };
 		B21B225E21A90B46000E794E /* MachineDataRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225821A90B46000E794E /* MachineDataRouter.swift */; };
-		B21B225F21A90B46000E794E /* MachineDataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225921A90B46000E794E /* MachineDataModels.swift */; };
 		B21B226021A90B46000E794E /* MachineDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225A21A90B46000E794E /* MachineDataViewController.swift */; };
 		B21B226121A90B46000E794E /* MachineDataInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B225B21A90B46000E794E /* MachineDataInteractor.swift */; };
 		B21B226521A917A3000E794E /* MachineDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226421A917A3000E794E /* MachineDataCell.swift */; };
 		B21B226D21A93E11000E794E /* MachineDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226721A93E11000E794E /* MachineDetailPresenter.swift */; };
 		B21B226E21A93E11000E794E /* MachineDetailWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226821A93E11000E794E /* MachineDetailWorker.swift */; };
 		B21B226F21A93E11000E794E /* MachineDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226921A93E11000E794E /* MachineDetailRouter.swift */; };
-		B21B227021A93E11000E794E /* MachineDetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226A21A93E11000E794E /* MachineDetailModels.swift */; };
 		B21B227121A93E11000E794E /* MachineDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226B21A93E11000E794E /* MachineDetailViewController.swift */; };
 		B21B227221A93E11000E794E /* MachineDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B226C21A93E11000E794E /* MachineDetailInteractor.swift */; };
 		B21B227A21A93EA5000E794E /* MachineHomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227421A93EA5000E794E /* MachineHomePresenter.swift */; };
 		B21B227B21A93EA5000E794E /* MachineHomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227521A93EA5000E794E /* MachineHomeWorker.swift */; };
 		B21B227C21A93EA5000E794E /* MachineHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227621A93EA5000E794E /* MachineHomeRouter.swift */; };
-		B21B227D21A93EA5000E794E /* MachineHomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227721A93EA5000E794E /* MachineHomeModels.swift */; };
 		B21B227E21A93EA5000E794E /* MachineHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227821A93EA5000E794E /* MachineHomeViewController.swift */; };
 		B21B227F21A93EA5000E794E /* MachineHomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B227921A93EA5000E794E /* MachineHomeInteractor.swift */; };
 		B21B228321A94D80000E794E /* LongTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B228121A94D80000E794E /* LongTextCell.swift */; };
@@ -79,20 +76,17 @@
 		B21B225621A90B46000E794E /* MachineDataPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataPresenter.swift; sourceTree = "<group>"; };
 		B21B225721A90B46000E794E /* MachineDataWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataWorker.swift; sourceTree = "<group>"; };
 		B21B225821A90B46000E794E /* MachineDataRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataRouter.swift; sourceTree = "<group>"; };
-		B21B225921A90B46000E794E /* MachineDataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataModels.swift; sourceTree = "<group>"; };
 		B21B225A21A90B46000E794E /* MachineDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataViewController.swift; sourceTree = "<group>"; };
 		B21B225B21A90B46000E794E /* MachineDataInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataInteractor.swift; sourceTree = "<group>"; };
 		B21B226421A917A3000E794E /* MachineDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDataCell.swift; sourceTree = "<group>"; };
 		B21B226721A93E11000E794E /* MachineDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailPresenter.swift; sourceTree = "<group>"; };
 		B21B226821A93E11000E794E /* MachineDetailWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailWorker.swift; sourceTree = "<group>"; };
 		B21B226921A93E11000E794E /* MachineDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailRouter.swift; sourceTree = "<group>"; };
-		B21B226A21A93E11000E794E /* MachineDetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailModels.swift; sourceTree = "<group>"; };
 		B21B226B21A93E11000E794E /* MachineDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailViewController.swift; sourceTree = "<group>"; };
 		B21B226C21A93E11000E794E /* MachineDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineDetailInteractor.swift; sourceTree = "<group>"; };
 		B21B227421A93EA5000E794E /* MachineHomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomePresenter.swift; sourceTree = "<group>"; };
 		B21B227521A93EA5000E794E /* MachineHomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeWorker.swift; sourceTree = "<group>"; };
 		B21B227621A93EA5000E794E /* MachineHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeRouter.swift; sourceTree = "<group>"; };
-		B21B227721A93EA5000E794E /* MachineHomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeModels.swift; sourceTree = "<group>"; };
 		B21B227821A93EA5000E794E /* MachineHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeViewController.swift; sourceTree = "<group>"; };
 		B21B227921A93EA5000E794E /* MachineHomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineHomeInteractor.swift; sourceTree = "<group>"; };
 		B21B228121A94D80000E794E /* LongTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextCell.swift; sourceTree = "<group>"; };
@@ -193,7 +187,6 @@
 				B21B225621A90B46000E794E /* MachineDataPresenter.swift */,
 				B21B225721A90B46000E794E /* MachineDataWorker.swift */,
 				B21B225821A90B46000E794E /* MachineDataRouter.swift */,
-				B21B225921A90B46000E794E /* MachineDataModels.swift */,
 				B21B225A21A90B46000E794E /* MachineDataViewController.swift */,
 				B21B225B21A90B46000E794E /* MachineDataInteractor.swift */,
 				B21B226421A917A3000E794E /* MachineDataCell.swift */,
@@ -207,7 +200,6 @@
 				B21B226721A93E11000E794E /* MachineDetailPresenter.swift */,
 				B21B226821A93E11000E794E /* MachineDetailWorker.swift */,
 				B21B226921A93E11000E794E /* MachineDetailRouter.swift */,
-				B21B226A21A93E11000E794E /* MachineDetailModels.swift */,
 				B21B226B21A93E11000E794E /* MachineDetailViewController.swift */,
 				B21B226C21A93E11000E794E /* MachineDetailInteractor.swift */,
 			);
@@ -220,7 +212,6 @@
 				B21B227421A93EA5000E794E /* MachineHomePresenter.swift */,
 				B21B227521A93EA5000E794E /* MachineHomeWorker.swift */,
 				B21B227621A93EA5000E794E /* MachineHomeRouter.swift */,
-				B21B227721A93EA5000E794E /* MachineHomeModels.swift */,
 				B21B227821A93EA5000E794E /* MachineHomeViewController.swift */,
 				B21B227921A93EA5000E794E /* MachineHomeInteractor.swift */,
 			);
@@ -349,13 +340,10 @@
 				B21B227221A93E11000E794E /* MachineDetailInteractor.swift in Sources */,
 				B21B226521A917A3000E794E /* MachineDataCell.swift in Sources */,
 				B21B227B21A93EA5000E794E /* MachineHomeWorker.swift in Sources */,
-				B21B225F21A90B46000E794E /* MachineDataModels.swift in Sources */,
 				B21B225C21A90B46000E794E /* MachineDataPresenter.swift in Sources */,
-				B21B227021A93E11000E794E /* MachineDetailModels.swift in Sources */,
 				B21B223321A8DF42000E794E /* AppDelegate.swift in Sources */,
 				B21B227E21A93EA5000E794E /* MachineHomeViewController.swift in Sources */,
 				B21B228721A953FD000E794E /* CarouselCell.swift in Sources */,
-				B21B227D21A93EA5000E794E /* MachineHomeModels.swift in Sources */,
 				B21B227121A93E11000E794E /* MachineDetailViewController.swift in Sources */,
 				B21B227A21A93EA5000E794E /* MachineHomePresenter.swift in Sources */,
 				B21B227C21A93EA5000E794E /* MachineHomeRouter.swift in Sources */,

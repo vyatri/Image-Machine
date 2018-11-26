@@ -75,8 +75,7 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let request = MachineData.Something.Request()
-        interactor?.doSomething(request: request)
+        interactor?.doSomething()
     }
     
     // MARK: - Constants and Variables
@@ -90,8 +89,7 @@ class MachineDataViewController: UIViewController, MachineDataDisplayLogic, UITa
         machineDataTableView.rowHeight = UITableView.automaticDimension
         machineDataTableView.estimatedRowHeight = 63
         
-        let request = MachineData.Something.Request()
-        interactor?.doSomething(request: request)
+        interactor?.doSomething()
     }
     
     func displaySomething(machines: [Machine])
