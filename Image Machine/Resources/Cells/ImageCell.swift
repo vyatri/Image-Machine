@@ -19,9 +19,15 @@ class ImageCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    override func prepareForReuse() {
+        self.closeButton.removeTarget(nil, action: nil, for: .allEvents)
+        self.imagevw.image = UIImage()
+        self.closeButton.layer.setValue(nil, forKey: "indexpath")
+        super.prepareForReuse()
+    }
 
     func setData(_ image: PHAsset, isEditingMode: Bool) {
-        imagevw.image = nil
         
         imgManager.requestImage(for: image, targetSize: CGSize(width: 500, height: 500), contentMode: .aspectFill, options: nil) { (img, err) in
             self.imagevw.image = img
